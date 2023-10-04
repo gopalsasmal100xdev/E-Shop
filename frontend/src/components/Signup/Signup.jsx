@@ -3,34 +3,48 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import styles from "../../styles/styles";
+import axios from "axios";
+import { SERVER_URL_API } from "../../constants/data";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [viewImage, setViewImage] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleSubmit = () => {};
   const handleFileInputChange = (event) => {
-    /*const reader = new FileReader();
-
-    const file = e.target.files?.[0];
-    if (file) reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      if (reader.readyState === 2 && reader.result) {
-        setAvatar(reader.result);
-      }
-    };*/
     if (event.target.files && event.target.files[0]) {
-      setAvatar(URL.createObjectURL(event.target.files[0]));
+      setViewImage(URL.createObjectURL(event.target.files[0])); // set for view the image
     }
+    setAvatar(event.target.files[0]); // set for send the avatar to the server
   };
 
-  useEffect(() => {
-    console.log("Image ", avatar);
-  }, [avatar]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ name, avatar, password, email });
+    const formData = new FormData();
+    formData.append("file", avatar);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    axios
+      .post(`${SERVER_URL_API}/user/create-user`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("Response from server :- ", res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+
+  useEffect(() => {}, []);
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -52,7 +66,7 @@ const Signup = () => {
               <div className="mt-1">
                 <input
                   type="text"
-                  name="text"
+                  name="name"
                   autoComplete="name"
                   required
                   value={name}
@@ -125,9 +139,9 @@ const Signup = () => {
               <div className="mt-2 flex items-center">
                 <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
                   {/* default avatar */}
-                  {avatar ? (
+                  {viewImage ? (
                     <img
-                      src={avatar}
+                      src={viewImage}
                       alt="avatar"
                       className="h-full w-full object-cover rounded-full"
                     />
