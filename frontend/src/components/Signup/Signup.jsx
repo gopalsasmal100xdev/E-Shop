@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import styles from "../../styles/styles";
 import axios from "axios";
 import { SERVER_URL_API } from "../../constants/data";
+import RegisterToast from "../toast/RegisterToast";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
+  const navaigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +26,6 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ name, avatar, password, email });
     const formData = new FormData();
     formData.append("file", avatar);
     formData.append("name", name);
@@ -37,10 +39,25 @@ const Signup = () => {
         },
       })
       .then((res) => {
-        console.log("Response from server :- ", res.data);
+        const { name, avatar } = res.data.newUser;
+        toast.custom((t) => (
+          <div
+            className={`${
+              t.visible ? "animate-enter" : "animate-leave"
+            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}>
+            <RegisterToast name={name} avatar={avatar.url} />
+          </div>
+        ));
+        toast.success("Please login now!🙏");
+        navaigate("/login");
       })
       .catch((err) => {
-        console.log("error", err);
+        if (err.message === "Request failed with status code 400") {
+          toast.error(`User already registered`);
+        } else {
+          toast.error(`Please try again later.🙏`);
+          toast.error(`Something went wrong.`);
+        }
       });
   };
 

@@ -1,15 +1,42 @@
 import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL_API } from "../../constants/data";
+import { toast } from "react-hot-toast";
+// import RegisterToast from "../toast/RegisterToast";
 
 const Login = () => {
+  const navaigate = useNavigate();
   const [email, setEmail] = useState("");
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios
+      .post(
+        `${SERVER_URL_API}/user/login-user`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: false }
+      )
+      .then((res) => {
+        const { name } = res.data.data;
+        toast(`Welcome back ${name}`, {
+          icon: "🎉",
+        });
+        navaigate("/");
+      })
+      .catch(() => {
+        toast.error("Something went wrong!");
+        setTimeout(() => {
+          toast.error("Please try again later!");
+        }, 500);
+      });
   };
 
   useEffect(() => {}, []);
