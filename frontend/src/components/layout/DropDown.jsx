@@ -12,12 +12,12 @@ const DropDown = ({ categoriesData, setDropDown }) => {
   };
 
   return (
-    <div className="pb-4 w-[270px] bg-[#fff] absolute z-30 rounded-b-md shadow-sm">
+    <div className="pb-4 w-[270px] h-[270px] bg-[#fff] absolute z-30 rounded-b-md shadow-sm overflow-y-auto">
       {categoriesData &&
         categoriesData.map((item, index) => (
           <div
             key={index}
-            className={`${styles.noramlFlex}`}
+            className={`${styles.noramlFlex} hover:bg-slate-200 ease-in-out delay-50 hover:-translate-y-1 hover:scale-100 duration-300 rounded-md cursor-pointer`}
             onClick={() => handleSubmit(item)}>
             <img
               src={item.image_Url}

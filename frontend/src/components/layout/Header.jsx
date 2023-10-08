@@ -190,7 +190,7 @@ const Header = ({ activeHeading }) => {
           <div className="flex">
             {/* wish list */}
             <div className={`${Styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
                 {/* TODO:- true will replace with wish list length */}
                 {true && (
@@ -204,7 +204,7 @@ const Header = ({ activeHeading }) => {
             {/* Cart list */}
 
             <div className={`${Styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <AiOutlineShoppingCart
                   size={30}
                   color="rgb(255 255 255 / 83%)"
@@ -221,7 +221,7 @@ const Header = ({ activeHeading }) => {
             {/* Login user profile */}
 
             <div className={`${Styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 {isAuthenticated ? (
                   <Link to="/profile">
                     {/* avtar url may be change later */}
