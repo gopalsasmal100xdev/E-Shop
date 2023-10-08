@@ -5,33 +5,32 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER_URL_API } from "../../constants/data";
 import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 // import RegisterToast from "../toast/RegisterToast";
 
 const Login = () => {
   const navaigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("gopal@gmail.com"); // set dummy email
   const [visible, setVisible] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("password"); // set dummy password
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        `${SERVER_URL_API}/user/login-user`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: false }
-      )
+      .post(`${SERVER_URL_API}/user/login-user`, {
+        email,
+        password,
+      })
       .then((res) => {
         const { name } = res.data.data;
+        Cookies.set("token", res.data.token, { expires: 7 });
         toast(`Welcome back ${name}`, {
           icon: "🎉",
         });
         navaigate("/");
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         toast.error("Something went wrong!");
         setTimeout(() => {
           toast.error("Please try again later!");

@@ -6,6 +6,7 @@ const User = require("../models/User");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendToken = require("../utils/JwtToken");
 const catchAsyncError = require("../middleware/CatchAsyncError");
+const { isAuthenticated } = require("../middleware/Auth");
 
 router
   .route("/create-user")
@@ -20,7 +21,6 @@ router
     }
 
     const fileName = req.file?.filename;
-    // const fileUrl = path.join(fileName);
 
     const user = {
       name,
@@ -60,11 +60,47 @@ router
         if (!isPasswordValid) {
           return next(new ErrorHandler("Invalid information!", 400));
         }
-        sendToken(user, 201, res);
+        const token = user.getJwtToken();
+        res
+          .status(201)
+          .cookie("token", token, {
+            maxAge: 60 * 60 * 24 * 1000 * 7,
+            httpOnly: true,
+          })
+          .json({
+            success: true,
+            data: { name: user.name, email: user.email, avatar: user.avatar },
+            token,
+          });
       } catch (error) {
         res.status(401).json({ message: "Invalid username or password" });
       }
     })
   );
+
+router
+  .route("/getUser")
+  .get(
+    isAuthenticated,
+    catchAsyncError(async (req, res, next) => {
+      try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+          return next(new ErrorHandler("User does't exists", 400));
+        }
+
+        res.status(200).json({
+          success: true,
+          user,
+        });
+      } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+      }
+    })
+  )
+  .post((req, res) => {
+    res.json({ message: "getUser post route" });
+  });
 
 module.exports = router;

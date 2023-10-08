@@ -1,16 +1,34 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Login, Signup, ActivationPage } from "./Routes";
+import { LoginPage, SignupPage, HomePage } from "./pages";
+// import axios from "axios";
+// import { SERVER_URL_API } from "./constants/data";
+// import toast from "react-hot-toast";
+// import Cookies from "js-cookie";
 
 const App = () => {
+  useEffect(() => {
+    // const token = Cookies.get("token");
+    // axios
+    //   .get(`${SERVER_URL_API}/user/getUser`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     toast.error(`${err?.response?.data?.message}`);
+    //   });
+  }, []);
+
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route
-          path="/activation/:activation_token"
-          element={<ActivationPage />}
-        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignupPage />} />
       </Routes>
     </>
   );
