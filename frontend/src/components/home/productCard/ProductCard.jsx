@@ -3,18 +3,21 @@ import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import {
   AiFillHeart,
-  AiOutlineEye,
+  AiFillStar,
   AiOutlineHeart,
   AiOutlineShoppingCart,
+  AiOutlineStar,
 } from "react-icons/ai";
+import ProductDetailsModal from "../../modals/ProductDetailsModal";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ data }) => {
   const [click, setClick] = useState(false);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const item_name = data.name;
   const product_name = item_name.replace(/\s+/g, "-");
+
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer ease-in-out delay-50 hover:-translate-y-1 hover:scale-100 duration-300">
       <div className="flex justify-end"></div>
@@ -39,25 +42,48 @@ const ProductCard = ({ data }) => {
         </h4>
         <div className="flex">
           {/* <Ratings rating={data?.ratings} /> */}
-          rating
+          <AiFillStar
+            className="mr-2 cursor-pointer"
+            size={20}
+            color="#F6BA00"
+          />
+          <AiFillStar
+            className="mr-2 cursor-pointer"
+            size={20}
+            color="#F6BA00"
+          />
+          <AiFillStar
+            className="mr-2 cursor-pointer"
+            size={20}
+            color="#F6BA00"
+          />
+          <AiFillStar
+            className="mr-2 cursor-pointer"
+            size={20}
+            color="#F6BA00"
+          />
+          <AiOutlineStar
+            className="mr-2 cursor-pointer"
+            size={20}
+            color="#F6BA00"
+          />
         </div>
 
         <div className="py-2 flex items-center justify-between">
           <div className="flex">
             <h5 className={`${styles.productDiscountPrice}`}>
-              {data.originalPrice === 0
-                ? data.originalPrice
-                : data.discountPrice}
-              $
+              {data.price === 0 ? data.price : data.discount_price}$
             </h5>
 
             <h4 className={`${styles.price}`}>
-              {data.originalPrice ? data.originalPrice + " $" : null}
+              {data.price ? data.price + " $" : null}
             </h4>
-            <span className="font-[400] text-[17px] text-[#68d284]">
-              {data?.sold_out} sold
-            </span>
           </div>
+          {data.total_sell && (
+            <span className="font-[400] text-[17px] text-[#68d284]">
+              {data.total_sell} sold
+            </span>
+          )}
         </div>
       </Link>
 
@@ -67,7 +93,7 @@ const ProductCard = ({ data }) => {
           <AiFillHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            // onClick={() => removeFromWishlistHandler(data)}
+            onClick={() => setClick((prev) => !prev)}
             color={click ? "red" : "#333"}
             title="Remove from wishlist"
           />
@@ -75,18 +101,19 @@ const ProductCard = ({ data }) => {
           <AiOutlineHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            // onClick={() => addToWishlistHandler(data)}
+            onClick={() => setClick((prev) => !prev)}
             color={click ? "red" : "#333"}
             title="Add to wishlist"
           />
         )}
-        <AiOutlineEye
+        {/* <AiOutlineEye
           size={22}
           className="cursor-pointer absolute right-2 top-14"
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={onOpen}
           color="#333"
           title="Quick view"
-        />
+        /> */}
+        <ProductDetailsModal data={data} />
         <AiOutlineShoppingCart
           size={25}
           className="cursor-pointer absolute right-2 top-24"
@@ -94,7 +121,6 @@ const ProductCard = ({ data }) => {
           color="#444"
           title="Add to cart"
         />
-        {/* {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null} */}
       </div>
     </div>
   );
