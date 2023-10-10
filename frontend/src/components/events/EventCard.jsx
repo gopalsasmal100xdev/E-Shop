@@ -3,8 +3,13 @@ import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import { TbListDetails } from "react-icons/tb";
 import EventCountDown from "./EventCountDown";
+import { useEffect } from "react";
 
 const EventCard = () => {
+  useEffect(() => {
+    window.scrollTo(2, 2);
+  }, []);
+
   return (
     <div className="w-full block bg-white rounded-lg lg:flex p-2">
       <div className="w-full lg:-w[50%] m-auto">

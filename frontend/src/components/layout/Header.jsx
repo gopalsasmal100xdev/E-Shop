@@ -91,7 +91,7 @@ const Header = ({ activeHeading }) => {
                         <div className="w-full flex items-start-py-3">
                           <img
                             src={`${item.image_Url[0].url}`}
-                            alt=""
+                            alt="product_image"
                             className="w-[40px] h-[40px] mr-[10px]"
                           />
                           <h1>{item.name}</h1>

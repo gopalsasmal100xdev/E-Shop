@@ -8,27 +8,38 @@ export const navItems = [
   {
     title: "Home",
     url: "/",
-    icon: <FaHome size={23} className="mr-2" color="cyan" />,
+    icon: <FaHome size={23} className="mr-2" />,
+    active_icon: <FaHome size={23} className="mr-2" color="cyan" />,
   },
   {
     title: "Best Selling",
     url: "/best-selling",
-    icon: <TbShoppingCartStar size={23} className="mr-2" color="#bc5fbc" />,
+    icon: <TbShoppingCartStar size={23} className="mr-2" />,
+    active_icon: (
+      <TbShoppingCartStar size={23} className="mr-2" color="#bc5fbc" />
+    ),
   },
   {
     title: "Products",
     url: "/products",
-    icon: <BsFillGiftFill size={20} className="mr-2" color="#FFA351" />,
+    icon: <BsFillGiftFill size={20} className="mr-2" />,
+    active_icon: <BsFillGiftFill size={20} className="mr-2" color="#FFA351" />,
   },
   {
     title: "Events",
     url: "/events",
-    icon: <BsCalendar2EventFill size={20} className="mr-2" color="#EC449B" />,
+    icon: <BsCalendar2EventFill size={20} className="mr-2" />,
+    active_icon: (
+      <BsCalendar2EventFill size={20} className="mr-2" color="#EC449B" />
+    ),
   },
   {
     title: "FAQ",
     url: "/faq",
-    icon: <FaClipboardQuestion size={20} className="mr-2" color="#79A7D3" />,
+    icon: <FaClipboardQuestion size={20} className="mr-2" />,
+    active_icon: (
+      <FaClipboardQuestion size={20} className="mr-2" color="#79A7D3" />
+    ),
   },
 ];
 
@@ -649,6 +660,7 @@ export const footercompanyLinks = [
 export const footerSupportLinks = [
   {
     name: "FAQ",
+    url: "/faq",
   },
   {
     name: "Reviews",
