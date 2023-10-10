@@ -103,7 +103,7 @@ const Header = ({ activeHeading }) => {
             ) : null}
           </div>
           {/* Became a seller */}
-          <div className={`${Styles.button} bg-[#63a4ff] hover:bg-[#4d97ff]`}>
+          <div className={`${Styles.button} bg-[#3c2eff] hover:bg-[#4d97ff]`}>
             <Link to={"/seller"}>
               <h1 className="text-[#fff] flex items-center">
                 Become Seller
