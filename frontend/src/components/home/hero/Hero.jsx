@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Hero = () => {
   return (
@@ -24,10 +25,11 @@ const Hero = () => {
         </p>
         <Link to="/products" className="inline-block">
           <div
-            className={`w-[150px] h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-100 hover:bg-blue-700 duration-300 mt-5`}>
+            className={`w-[160px] h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer ease-in-out delay-150 bg-[#101820FF] hover:-translate-y-1 hover:scale-100 hover:bg-[#1c3046] duration-300 mt-5`}>
             <span className="text-[#fff] font-[Poppins] text-[18px] hover:backdrop-blur-md">
               Shop Now
             </span>
+            <FaCartArrowDown size={23} color="cyan" className="ml-2" />
           </div>
         </Link>
       </div>

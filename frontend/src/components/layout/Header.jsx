@@ -8,11 +8,8 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import {
-  IoIosArrowDown,
-  IoIosArrowForward,
-  IoIosArrowUp,
-} from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { RiCustomerService2Fill } from "react-icons/ri";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Styles from "../../styles/styles";
 import DropDown from "./DropDown";
@@ -105,11 +102,16 @@ const Header = ({ activeHeading }) => {
               </div>
             ) : null}
           </div>
-
-          <div className={`${Styles.button}`}>
+          {/* Became a seller */}
+          <div className={`${Styles.button} bg-[#63a4ff] hover:bg-[#4d97ff]`}>
             <Link to={"/seller"}>
               <h1 className="text-[#fff] flex items-center">
-                Become Seller <IoIosArrowForward className="ml-1" />
+                Become Seller
+                <RiCustomerService2Fill
+                  className="ml-2"
+                  size={20}
+                  color="cyan"
+                />
               </h1>
             </Link>
           </div>
@@ -118,7 +120,7 @@ const Header = ({ activeHeading }) => {
       <div
         className={`${
           active ? "shadow-sm fixed top-0 left-0 z-10" : ""
-        } transition hidden md:flex items-center justify-between w-full bg-[#3321c8] h-[70px] rounded-md`}>
+        } transition hidden md:flex items-center justify-between w-full bg-[#101820FF] h-[70px] rounded-md`}>
         <div
           className={`${Styles.section} relative ${Styles.noramlFlex} justify-between`}>
           {/*  Categories  */}
@@ -192,8 +194,8 @@ const Header = ({ activeHeading }) => {
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
-                {/* TODO:- true will replace with wish list length */}
-                {true && (
+                {/* TODO:- false will replace with wish list length */}
+                {false && (
                   <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                     {/* {wishlist && wishlist.length} */} 0
                   </span>
@@ -209,8 +211,8 @@ const Header = ({ activeHeading }) => {
                   size={30}
                   color="rgb(255 255 255 / 83%)"
                 />
-                {/* true will be replace with cart length*/}
-                {true && (
+                {/* false will be replace with cart length*/}
+                {false && (
                   <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                     {/* {cart && cart.length} */} 0
                   </span>

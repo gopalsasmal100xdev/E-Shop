@@ -95,7 +95,8 @@ const ProductDetailsModal = ({ data }) => {
                   className={`${styles.button} bg-[#000] mt-4 rounded-[4px] h-11`}
                   onClick={handleMessageSubmit}>
                   <span className="text-[#fff] flex items-center">
-                    Send Message <AiOutlineMessage className="ml-1" />
+                    Send Message
+                    <AiOutlineMessage size={20} className="ml-2" color="cyan" />
                   </span>
                 </div>
                 {data.total_sell && (
@@ -158,7 +159,12 @@ const ProductDetailsModal = ({ data }) => {
                   className={`${styles.button} mt-6 rounded-[4px] h-11 flex items-center`}
                   onClick={() => {}}>
                   <span className="text-[#fff] flex items-center">
-                    Add to cart <AiOutlineShoppingCart className="ml-1" />
+                    Add to cart
+                    <AiOutlineShoppingCart
+                      size={20}
+                      className="ml-2"
+                      color="green"
+                    />
                   </span>
                 </div>
               </div>
