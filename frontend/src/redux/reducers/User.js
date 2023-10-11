@@ -11,7 +11,9 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk("user/get-user", async () => {
   return axios
-    .get(`${SERVER_URL_API}/user/getUser`)
+    .get(`${SERVER_URL_API}/user/getUser`, {
+      withCredentials: true,
+    })
     .then((res) => res.data)
     .catch((err) => err.message || "Error in fetching user data!");
 });
@@ -29,7 +31,7 @@ const UserSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload.data;
         state.error = "";
       })
       .addCase(fetchUser.rejected, (state, action) => {

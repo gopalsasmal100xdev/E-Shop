@@ -31,10 +31,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Something went wrong!");
-        setTimeout(() => {
-          toast.error("Please try again later!");
-        }, 500);
+        toast.error(err.response.data.message || "Invalid information!");
       });
   };
 
@@ -46,7 +43,6 @@ const Login = () => {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Login to your account
         </h2>
-
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" onSubmit={handleSubmit}>

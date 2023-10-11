@@ -9,33 +9,33 @@ import {
   BestSellingPage,
   EventsPage,
 } from "./pages";
-// import axios from "axios";
-// import { SERVER_URL_API } from "./constants/data";
-// import toast from "react-hot-toast";
-// import Cookies from "js-cookie";
+import OtpVerificationPage from "./components/Login/OtpVerificationPage";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "./redux/reducers/User";
 
 const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    // const token = Cookies.get("token");
-    // axios
-    //   .get(`${SERVER_URL_API}/user/getUser`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     toast.error(`${err?.response?.data?.message}`);
-    //   });
-  }, []);
+    /*axios
+      .get(`${SERVER_URL_API}/user/getUser`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(`${err.response.data.message || "Something went wrong!"}`);
+      });*/
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   return (
     <div className="bg-slate-100">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/otp-verification" element={<OtpVerificationPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/best-selling" element={<BestSellingPage />} />
         <Route path="/products" element={<ProductsPage />} />

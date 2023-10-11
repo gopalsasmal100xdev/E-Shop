@@ -1429,6 +1429,11 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
+"@types/canvas-confetti@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@types/canvas-confetti/-/canvas-confetti-1.6.0.tgz#c525f22f1042e73dec6a7e86c1f5bb0191c09fea"
+  integrity sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==
+
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#dc1e9ded53375d37603c479cc12c693b0878aa2a"
@@ -1757,6 +1762,11 @@ caniuse-lite@^1.0.30001538, caniuse-lite@^1.0.30001541:
   version "1.0.30001543"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001543.tgz"
   integrity sha512-qxdO8KPWPQ+Zk6bvNpPeQIOH47qZSYdFZd6dXQzb2KzhnSXju4Kd7H1PkSJx6NICSMgo/IhRZRhhfPTHYpJUCA==
+
+canvas-confetti@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/canvas-confetti/-/canvas-confetti-1.6.0.tgz#193f71aa8f38fc850a5ba94f59091a7afdb43ead"
+  integrity sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -3232,6 +3242,14 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+react-canvas-confetti@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-canvas-confetti/-/react-canvas-confetti-1.4.0.tgz#69a759e09024ff2cc8896739b8377182dee3c38d"
+  integrity sha512-ByBdSsNGUxlcJuOqSgbZw1VWNNO3b7njTmnuM1Y36mvwdCkCRs8rLkRAjn6MQK96LgWcfDVhr6ZT5olm2w8Zwg==
+  dependencies:
+    "@types/canvas-confetti" "1.6.0"
+    canvas-confetti "1.6.0"
 
 react-clientside-effect@^1.2.6:
   version "1.2.6"

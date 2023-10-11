@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendMail = async (option) => {
+const sendVerificationEmail = async (option) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMPT_HOST,
     port: process.env.SMPT_PORT,
@@ -15,9 +15,9 @@ const sendMail = async (option) => {
     from: process.env.SMPT_MAIL,
     to: option.email,
     subject: option.subject,
-    text: option.message,
+    html: option.message,
   };
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = sendMail;
+module.exports = sendVerificationEmail;

@@ -19,12 +19,19 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 /** Middlewares */
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-  cors({
-    // origin: "http://localhost:5173/",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://example.com",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+  ],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+};
+app.use(cors(corsOptions));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
