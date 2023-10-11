@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import {
   LoginPage,
@@ -10,26 +9,8 @@ import {
   EventsPage,
 } from "./pages";
 import OtpVerificationPage from "./components/Login/OtpVerificationPage";
-import { useDispatch } from "react-redux";
-import { fetchUser } from "./redux/reducers/User";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    /*axios
-      .get(`${SERVER_URL_API}/user/getUser`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(`${err.response.data.message || "Something went wrong!"}`);
-      });*/
-    dispatch(fetchUser());
-  }, [dispatch]);
-
   return (
     <div className="bg-slate-100">
       <Routes>

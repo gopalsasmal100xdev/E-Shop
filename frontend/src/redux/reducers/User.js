@@ -14,14 +14,13 @@ export const fetchUser = createAsyncThunk("user/get-user", async () => {
     .get(`${SERVER_URL_API}/user/getUser`, {
       withCredentials: true,
     })
-    .then((res) => res.data)
-    .catch((err) => err.message || "Error in fetching user data!");
+    .then((res) => res.data);
 });
 
 const UserSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  // reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {

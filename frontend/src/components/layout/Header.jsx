@@ -14,6 +14,8 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import Styles from "../../styles/styles";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
+import { SERVER_URL } from "../../constants/data";
+import { SkeletonCircle } from "@chakra-ui/react";
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ activeHeading }) => {
@@ -22,7 +24,7 @@ const Header = ({ activeHeading }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
   // scroll action
   window.addEventListener("scroll", () => {
@@ -224,19 +226,25 @@ const Header = ({ activeHeading }) => {
 
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-                {isAuthenticated ? (
-                  <Link to="/profile">
-                    {/* avtar url may be change later */}
-                    <img
-                      src={user?.avatar?.url}
-                      alt="profile_img"
-                      className="w-[35px] h-[35px] rounded-full"
-                    />
-                  </Link>
+                {loading ? (
+                  <SkeletonCircle size="10" />
                 ) : (
-                  <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
-                  </Link>
+                  <div>
+                    {isAuthenticated ? (
+                      <Link to="/profile">
+                        {/* avtar url may be change later */}
+                        <img
+                          src={`${SERVER_URL}/${user.avatar.url}`}
+                          alt="profile_img"
+                          className="w-[35px] h-[35px] rounded-full"
+                        />
+                      </Link>
+                    ) : (
+                      <Link to="/login">
+                        <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+                      </Link>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
