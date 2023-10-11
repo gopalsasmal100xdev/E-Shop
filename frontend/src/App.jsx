@@ -9,6 +9,7 @@ import {
   EventsPage,
 } from "./pages";
 import OtpVerificationPage from "./components/Login/OtpVerificationPage";
+import ProfilePage from "./components/profile/ProfilePage";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </div>
   );

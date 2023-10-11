@@ -52,12 +52,9 @@ const Signup = () => {
         navaigate("/login");
       })
       .catch((err) => {
-        if (err.message === "Request failed with status code 400") {
-          toast.error(`User already registered`);
-        } else {
-          toast.error(`Please try again later.🙏`);
-          toast.error(`Something went wrong.`);
-        }
+        toast.error(
+          `${err.response.data.message || "Please try again later!"}`
+        );
       });
   };
 
