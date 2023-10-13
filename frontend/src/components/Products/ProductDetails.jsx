@@ -27,7 +27,7 @@ const ProductDetails = ({ data }) => {
 
   useEffect(() => {
     setSelect(0);
-  }, []);
+  }, [data.id]);
 
   return (
     <div className="bg-slate-100">
