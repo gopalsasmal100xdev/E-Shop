@@ -25,6 +25,10 @@ const ProductDetailsModal = ({ data }) => {
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
 
+  const item_name = data.name;
+  const item_id = data.id; // TODO after depoly this should be _id
+  const product_name = item_name.replace(/\s+/g, "-");
+
   const incrementCount = () => {
     if (count > 1) setCount((prev) => prev - 1);
   };
@@ -61,7 +65,7 @@ const ProductDetailsModal = ({ data }) => {
               className="cursor-pointer absolute top-5 left-5"
               onClick={() => {
                 onClose();
-                navigate("/products-view");
+                navigate(`/products/${product_name}[]=${item_id}`);
               }}
               title="Product full details"
             />

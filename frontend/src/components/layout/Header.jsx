@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { categoriesData, productData } from "../../static/data";
 import { useSelector } from "react-redux";
-import {
-  AiOutlineHeart,
-  AiOutlineSearch,
-  AiOutlineShoppingCart,
-} from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RiCustomerService2Fill } from "react-icons/ri";
@@ -16,6 +12,8 @@ import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { SERVER_URL } from "../../constants/data";
 import { SkeletonCircle } from "@chakra-ui/react";
+import WishListDrawer from "./WishListDrawer";
+import CartDrawer from "./CartDrawer";
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ activeHeading }) => {
@@ -195,7 +193,8 @@ const Header = ({ activeHeading }) => {
             {/* wish list */}
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-                <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
+                {/* <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" /> */}
+                <WishListDrawer />
                 {/* TODO:- false will replace with wish list length */}
                 {false && (
                   <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
@@ -209,16 +208,17 @@ const Header = ({ activeHeading }) => {
 
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-                <AiOutlineShoppingCart
+                <CartDrawer />
+                {/* <AiOutlineShoppingCart
                   size={30}
                   color="rgb(255 255 255 / 83%)"
-                />
+                /> */}
                 {/* false will be replace with cart length*/}
-                {false && (
+                {/* {false && (
                   <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                    {/* {cart && cart.length} */} 0
+                    0
                   </span>
-                )}
+                )} */}
               </div>
             </div>
 
@@ -248,10 +248,6 @@ const Header = ({ activeHeading }) => {
                 )}
               </div>
             </div>
-
-            {/* Cart popup */}
-
-            {/* wish list popup */}
           </div>
         </div>
       </div>

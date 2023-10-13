@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // this event time should be replace with dynamic date
-const eventDate = new Date("2023-10-12T23:59:59").getTime();
+const eventDate = new Date("2023-10-15T23:59:59").getTime();
 
 const calculateTimeRemaining = () => {
   const currentDate = new Date().getTime();

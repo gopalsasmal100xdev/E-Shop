@@ -1,10 +1,7 @@
 const express = require("express");
-// const path = require("path");
 const router = express.Router();
 const { upload } = require("../middleware/multer");
 const User = require("../models/User");
-// const ErrorHandler = require("../utils/ErrorHandler");
-// const sendToken = require("../utils/JwtToken");
 const catchAsyncError = require("../middleware/CatchAsyncError");
 const { isAuthenticated } = require("../middleware/Auth");
 
@@ -17,7 +14,6 @@ router
     const { name, email, password } = req.body;
     const isUserPresent = await User.findOne({ email });
     if (isUserPresent) {
-      // next(new ErrorHandler("User already exists!", 400));
       res.status(400).json({ message: "User already exists!" });
     } else {
       const fileName = req.file?.filename;

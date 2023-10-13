@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import {
   AiFillHeart,
-  AiFillStar,
   AiOutlineHeart,
   AiOutlineShoppingCart,
-  AiOutlineStar,
 } from "react-icons/ai";
 import ProductDetailsModal from "../../modals/ProductDetailsModal";
+import Ratings from "../../Products/Ratings";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ data }) => {
@@ -16,12 +15,12 @@ const ProductCard = ({ data }) => {
   // const [open, setOpen] = useState(false);
 
   const item_name = data.name;
+  const item_id = data.id; // this id should be replaced with _id
   const product_name = item_name.replace(/\s+/g, "-");
-
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer ease-in-out delay-50 hover:-translate-y-1 hover:scale-100 duration-300">
       <div className="flex justify-end"></div>
-      <Link to={`/products/${product_name}`}>
+      <Link to={`/products/${product_name}[]=${item_id}`}>
         {data.image_Url && (
           <img
             src={`${data.image_Url[0]?.url}`}
@@ -41,32 +40,7 @@ const ProductCard = ({ data }) => {
           {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
         </h4>
         <div className="flex">
-          {/* <Ratings rating={data?.ratings} /> */}
-          <AiFillStar
-            className="mr-2 cursor-pointer"
-            size={20}
-            color="#F6BA00"
-          />
-          <AiFillStar
-            className="mr-2 cursor-pointer"
-            size={20}
-            color="#F6BA00"
-          />
-          <AiFillStar
-            className="mr-2 cursor-pointer"
-            size={20}
-            color="#F6BA00"
-          />
-          <AiFillStar
-            className="mr-2 cursor-pointer"
-            size={20}
-            color="#F6BA00"
-          />
-          <AiOutlineStar
-            className="mr-2 cursor-pointer"
-            size={20}
-            color="#F6BA00"
-          />
+          <Ratings rating={data?.rating} />
         </div>
 
         <div className="py-2 flex items-center justify-between">
