@@ -7,7 +7,7 @@ const RegisterToast = ({ avatar, name }) => {
       <div className="flex items-start">
         <div className="flex-shrink-0 pt-0.5">
           <img
-            className="h-10 w-10 rounded-full"
+            className="h-10 w-10 rounded-full object-cover"
             src={`${SERVER_URL}/${avatar}`}
             alt="RegisterUser"
           />

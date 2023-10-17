@@ -45,7 +45,7 @@ const Signup = () => {
             className={`${
               t.visible ? "animate-enter" : "animate-leave"
             } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}>
-            <RegisterToast name={name} avatar={avatar.url} />
+            <RegisterToast name={name} avatar={avatar?.url} />
           </div>
         ));
         toast.success("Please login now!🙏");

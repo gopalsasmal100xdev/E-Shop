@@ -41,7 +41,7 @@ const Products = () => {
           <div>
             <img src={NoData} alt="no_data_found" style={{ width: "400px" }} />
             <h1 className="text-center w-full pb-[100px] text-[20px]">
-              No products Found!
+              No {categoryData} products Found!
             </h1>
           </div>
         )}

@@ -16,8 +16,8 @@ const WishListDrawer = () => {
   const { wishListItems } = useSelector((state) => state.wishList);
   return (
     <>
-      <div onClick={() => onOpen()}>
-        <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
+      <div onClick={() => onOpen()} className="cursor-pointer">
+        <AiOutlineHeart size={30} color="white" />
         {wishListItems.length > 0 && (
           <span className="absolute right-0 top-0 rounded-full bg-[#de3e33] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
             {wishListItems.length}

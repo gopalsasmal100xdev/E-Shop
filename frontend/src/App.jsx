@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUser } from "./redux/reducers/User";
 import { CheckoutPage, PaymentPage, ProductDetailsPage } from "./components";
+import LogedInProtectedRoute from "./components/ProtectedRoutes/LogedInProtectedRoute";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,15 @@ const App = () => {
         <Route path="/products/:details" element={<ProductDetailsPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/faq" element={<FaqPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+
+        <Route
+          path="/profile"
+          element={
+            <LogedInProtectedRoute>
+              <ProfilePage />
+            </LogedInProtectedRoute>
+          }
+        />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} />
       </Routes>

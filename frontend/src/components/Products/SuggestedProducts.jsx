@@ -7,7 +7,6 @@ import ProductCard from "../home/productCard/ProductCard";
 import NoDataFound from "../NoData/NoDataFound";
 
 const SuggestedProducts = ({ data }) => {
-  console.log(data);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {

@@ -306,7 +306,7 @@ export const productData = [
       },
       {
         public_id: "test",
-        url: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp16-spacegray-select-202301?wid=2000&hei=1222&fmt=jpeg&qlt=95&.v=1671304673202",
+        url: "https://www.apple.com/v/macbook-pro-14-and-16/e/images/overview/keyboard/keyboard__0zc8gxnp2gy2_large.jpg",
       },
     ],
     shop: {

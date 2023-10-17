@@ -16,8 +16,8 @@ const CartDrawer = () => {
   const { cartItems } = useSelector((state) => state.cart);
   return (
     <>
-      <div onClick={() => onOpen()}>
-        <AiOutlineShoppingCart size={30} color="rgb(255 255 255 / 83%)" />
+      <div onClick={() => onOpen()} className="cursor-pointer">
+        <AiOutlineShoppingCart size={30} color="white" />
         {cartItems.length > 0 && (
           <span className="absolute right-0 top-0 rounded-full bg-[#de3e33] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
             {cartItems.length}
