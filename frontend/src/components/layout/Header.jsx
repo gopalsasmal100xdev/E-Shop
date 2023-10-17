@@ -113,7 +113,7 @@ const Header = ({ activeHeading }) => {
           </div>
           {/* Became a seller */}
           <div className={`${Styles.button} bg-[#3c2eff] hover:bg-[#4d97ff]`}>
-            <Link to={"/seller"}>
+            <Link to={"/create-shop"}>
               <h1 className="text-[#fff] flex items-center">
                 Become Seller
                 <RiCustomerService2Fill
@@ -287,7 +287,7 @@ const Header = ({ activeHeading }) => {
 
                   <Navbar active={activeHeading} />
                   <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                    <Link to="/shop-create">
+                    <Link to="/create-shop">
                       <h1 className="text-[#fff] flex items-center">
                         Become Seller <IoIosArrowForward className="ml-1" />
                       </h1>

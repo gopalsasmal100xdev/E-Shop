@@ -14,6 +14,9 @@ import { useEffect } from "react";
 import { fetchUser } from "./redux/reducers/User";
 import { CheckoutPage, PaymentPage, ProductDetailsPage } from "./components";
 import LogedInProtectedRoute from "./components/ProtectedRoutes/LogedInProtectedRoute";
+import CreateShopPage from "./components/Shop/CreateShopPage";
+import ShopLogin from "./components/Shop/auth/ShopLogin";
+import ShopRegister from "./components/Shop/auth/ShopRegister";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +34,6 @@ const App = () => {
         <Route path="/products/:details" element={<ProductDetailsPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/faq" element={<FaqPage />} />
-
         <Route
           path="/profile"
           element={
@@ -42,6 +44,10 @@ const App = () => {
         />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} />
+        {/* Shop routes */}
+        <Route path="create-shop" element={<CreateShopPage />} />
+        <Route path="create-shop/login" element={<ShopLogin />} />
+        <Route path="create-shop/register" element={<ShopRegister />} />
       </Routes>
     </div>
   );

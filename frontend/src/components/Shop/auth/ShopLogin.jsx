@@ -1,47 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
+import styles from "../../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { SERVER_URL_API } from "../../constants/data";
-import { toast } from "react-hot-toast";
+import { SERVER_SHOP_URL_API } from "../../../constants/data";
+import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-// import RegisterToast from "../toast/RegisterToast";
 
-const Login = () => {
+const ShopLogin = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("gopal@gmail.com"); // set dummy email
+  const [email, setEmail] = useState("gopal@gmail.com"); // dummy email
   const [visible, setVisible] = useState(false);
-  const [password, setPassword] = useState("password"); // set dummy password
+  const [password, setPassword] = useState("password"); // dummy password
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${SERVER_URL_API}/user/login-user`, {
+      .post(`${SERVER_SHOP_URL_API}/login-shop`, {
         email,
         password,
       })
       .then((res) => {
         const { name } = res.data.data;
-        Cookies.set("token", res.data.token, { expires: 7 });
-        toast(`Welcome back ${name}`, {
+        Cookies.set("shop-token", res.data.token, { expires: 7 });
+        toast(`Welcome back ${name} to your shop`, {
           icon: "🎉",
         });
-        navigate("/");
+        navigate("/create-shop");
       })
-      .catch((err) => {
-        toast.error(err.response.data.message || "Invalid information!");
+      .catch((error) => {
+        toast.error(error.response.data.message || "Invalid information!");
       });
   };
 
-  useEffect(() => {}, []);
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
-        </h2>
+    <div>
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Login to your shop
+          </h2>
+        </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -83,13 +82,13 @@ const Login = () => {
                     <AiOutlineEye
                       className="absolute right-2 top-2 cursor-pointer"
                       size={25}
-                      onClick={() => setVisible((prev) => !prev)}
+                      onClick={() => setVisible(false)}
                     />
                   ) : (
                     <AiOutlineEyeInvisible
                       className="absolute right-2 top-2 cursor-pointer"
                       size={25}
-                      onClick={() => setVisible((prev) => !prev)}
+                      onClick={() => setVisible(true)}
                     />
                   )}
                 </div>
@@ -109,11 +108,11 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="text-sm">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="font-medium text-blue-600 hover:text-blue-500">
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div>
@@ -125,7 +124,7 @@ const Login = () => {
               </div>
               <div className={`${styles.noramlFlex} w-full`}>
                 <h4>Not have any account?</h4>
-                <Link to="/sign-up" className="text-blue-600 pl-2">
+                <Link to="/create-shop/register" className="text-blue-600 pl-2">
                   Sign Up
                 </Link>
               </div>
@@ -137,4 +136,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ShopLogin;

@@ -20,7 +20,6 @@ const createUser =
   (upload.single("file"),
   async (req, res, next) => {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
     try {
       const isUserPresent = await User.findOne({ email });
       if (isUserPresent) {

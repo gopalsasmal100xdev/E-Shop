@@ -9,7 +9,7 @@ import RegisterToast from "../toast/RegisterToast";
 import { toast } from "react-hot-toast";
 
 const Signup = () => {
-  const navaigate = useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +49,7 @@ const Signup = () => {
           </div>
         ));
         toast.success("Please login now!🙏");
-        navaigate("/login");
+        navigate("/login");
       })
       .catch((err) => {
         toast.error(
