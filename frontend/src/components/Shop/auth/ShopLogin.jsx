@@ -6,8 +6,11 @@ import axios from "axios";
 import { SERVER_SHOP_URL_API } from "../../../constants/data";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { fetchSeller } from "../../../redux/reducers/Seller";
+import { useDispatch } from "react-redux";
 
 const ShopLogin = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("gopal@gmail.com"); // dummy email
   const [visible, setVisible] = useState(false);
@@ -22,11 +25,13 @@ const ShopLogin = () => {
       })
       .then((res) => {
         const { name } = res.data.data;
-        Cookies.set("shop-token", res.data.token, { expires: 7 });
+        console.log(res.data);
+        Cookies.set("seller_token", res.data.token, { expires: 7 });
         toast(`Welcome back ${name} to your shop`, {
           icon: "🎉",
         });
-        navigate("/create-shop");
+        dispatch(fetchSeller());
+        navigate(`/shop/dashboard/`);
       })
       .catch((error) => {
         toast.error(error.response.data.message || "Invalid information!");
@@ -124,7 +129,7 @@ const ShopLogin = () => {
               </div>
               <div className={`${styles.noramlFlex} w-full`}>
                 <h4>Not have any account?</h4>
-                <Link to="/create-shop/register" className="text-blue-600 pl-2">
+                <Link to="/shop/register" className="text-blue-600 pl-2">
                   Sign Up
                 </Link>
               </div>

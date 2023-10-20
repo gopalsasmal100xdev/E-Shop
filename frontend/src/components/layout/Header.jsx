@@ -113,7 +113,7 @@ const Header = ({ activeHeading }) => {
           </div>
           {/* Became a seller */}
           <div className={`${Styles.button} bg-[#3c2eff] hover:bg-[#4d97ff]`}>
-            <Link to={"/create-shop"}>
+            <Link to={`/shop/dashboard`}>
               <h1 className="text-[#fff] flex items-center">
                 Become Seller
                 <RiCustomerService2Fill

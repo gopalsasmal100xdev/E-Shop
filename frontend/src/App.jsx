@@ -14,14 +14,18 @@ import { useEffect } from "react";
 import { fetchUser } from "./redux/reducers/User";
 import { CheckoutPage, PaymentPage, ProductDetailsPage } from "./components";
 import LogedInProtectedRoute from "./components/ProtectedRoutes/LogedInProtectedRoute";
-import CreateShopPage from "./components/Shop/CreateShopPage";
-import ShopLogin from "./components/Shop/auth/ShopLogin";
-import ShopRegister from "./components/Shop/auth/ShopRegister";
+import { ShopLoginPage, ShopRegisterPage } from "./components/Shop/pages";
+import PageNotFound from "./pages/PageNotFound";
+import { fetchSeller } from "./redux/reducers/Seller";
+import ShopDashboardPage from "./components/Shop/pages/ShopDashboardPage";
+import SellerProtectedRoute from "./components/ProtectedRoutes/SellerLoginProtectedRoute";
 
 const App = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchSeller());
   }, [dispatch]);
   return (
     <div className="bg-slate-100">
@@ -45,9 +49,19 @@ const App = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         {/* Shop routes */}
-        <Route path="create-shop" element={<CreateShopPage />} />
-        <Route path="create-shop/login" element={<ShopLogin />} />
-        <Route path="create-shop/register" element={<ShopRegister />} />
+        <Route path="/shop">
+          <Route
+            path="dashboard"
+            element={
+              <SellerProtectedRoute>
+                <ShopDashboardPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route path="login" element={<ShopLoginPage />} />
+          <Route path="register" element={<ShopRegisterPage />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { upload } = require("../middleware/multer");
 const Shop = require("../models/Shop");
+const { isSellerAuthenticated } = require("../middleware/Auth");
+const CatchAsyncError = require("../middleware/CatchAsyncError");
+
+/** Signup shop */
 
 router
   .route("/create-shop")
@@ -33,6 +37,7 @@ router
     }
   });
 
+/*** Login shop */
 router
   .route("/login-shop")
   .get((req, res) => {
@@ -64,6 +69,7 @@ router
                 data: {
                   name: user.name,
                   email: user.email,
+                  id: user._id,
                   avatar: user.avatar,
                 },
                 token,
@@ -80,6 +86,32 @@ router
         .status(401)
         .json({ message: "Something went wrong! Please try again!🙏" });
     }
+  });
+
+router
+  .route("/getSeller")
+  .get(
+    isSellerAuthenticated,
+    CatchAsyncError(async (req, res) => {
+      try {
+        const seller = await Shop.findById(req.seller.id);
+        if (!seller) {
+          res.status(400).json({ message: "Seller does not exists!" });
+        } else {
+          res.status(200).json({
+            success: true,
+            data: seller,
+          });
+        }
+      } catch (error) {
+        res
+          .status(500)
+          .json({ message: error.message || "Internal Server Error!" });
+      }
+    })
+  )
+  .post((req, res) => {
+    res.json({ message: "Please go back to home page" });
   });
 
 module.exports = router;

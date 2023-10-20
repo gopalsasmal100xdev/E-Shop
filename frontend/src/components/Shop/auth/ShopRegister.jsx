@@ -54,7 +54,7 @@ const ShopRegister = () => {
           </div>
         ));
         toast.success("Please login now!🙏");
-        navigate("/create-shop/login");
+        navigate("/shop/login");
       })
       .catch((error) => {
         toast.error(
@@ -236,7 +236,7 @@ const ShopRegister = () => {
               </div>
               <div className={`${styles.noramlFlex} w-full`}>
                 <h4>Already have an account?</h4>
-                <Link to="/create-shop/login" className="text-blue-600 pl-2">
+                <Link to="/shop/login" className="text-blue-600 pl-2">
                   Sign in
                 </Link>
               </div>
