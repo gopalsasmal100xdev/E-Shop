@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import ShopLogin from "../auth/ShopLogin";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const ShopLoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isSelllerAuthenticated, seller } = useSelector(
     (state) => state.seller
   );
@@ -12,7 +13,7 @@ const ShopLoginPage = () => {
     if (isSelllerAuthenticated === true) {
       navigate(`/shop/dashboard`);
     }
-  }, [isSelllerAuthenticated, navigate, seller._id]);
+  }, [dispatch, isSelllerAuthenticated, navigate, seller._id]);
 
   return <ShopLogin />;
 };

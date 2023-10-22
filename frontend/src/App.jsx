@@ -19,6 +19,8 @@ import PageNotFound from "./pages/PageNotFound";
 import { fetchSeller } from "./redux/reducers/Seller";
 import ShopDashboardPage from "./components/Shop/pages/ShopDashboardPage";
 import SellerProtectedRoute from "./components/ProtectedRoutes/SellerLoginProtectedRoute";
+import ShopProfilePage from "./components/Shop/Profile/ShopProfilePage";
+import ShopCreateProductPage from "./components/Shop/pages/ShopCreateProductPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +57,22 @@ const App = () => {
             element={
               <SellerProtectedRoute>
                 <ShopDashboardPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="create-product"
+            element={
+              <SellerProtectedRoute>
+                <ShopCreateProductPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path=":id"
+            element={
+              <SellerProtectedRoute>
+                <ShopProfilePage />
               </SellerProtectedRoute>
             }
           />

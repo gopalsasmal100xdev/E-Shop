@@ -2,8 +2,6 @@ import { AiOutlineMoneyCollect } from "react-icons/ai";
 import styles from "../../../styles/styles";
 import { Link } from "react-router-dom";
 import { MdBorderClear } from "react-icons/md";
-// import DataGridDemo from "../DataGridDemo";
-
 const ShopDashboardHero = () => {
   return (
     <div className="w-full p-8">
@@ -69,16 +67,7 @@ const ShopDashboardHero = () => {
       </div>
       <br />
       <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
-      <div className="w-full min-h-[45vh] bg-white rounded">
-        {/* <DataGridDemo /> */}
-        {/* <DataGrid
-          rows={row}
-          columns={columns}
-          pageSize={10}
-          disableSelectionOnClick
-          autoHeight
-        /> */}
-      </div>
+      <div className="w-full min-h-[45vh] bg-white rounded">data grid</div>
     </div>
   );
 };

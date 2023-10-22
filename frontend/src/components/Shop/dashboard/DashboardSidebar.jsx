@@ -42,7 +42,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-products" className="w-full flex items-center">
+        <Link to="/shop/products" className="w-full flex items-center">
           <FiPackage size={25} color={`${active === 3 ? "crimson" : "#555"}`} />
           <h5
             className={`hidden 800px:block pl-2 text-[18px] font-[400] ${
@@ -54,9 +54,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link
-          to="/dashboard-create-product"
-          className="w-full flex items-center">
+        <Link to="/shop/create-product" className="w-full flex items-center">
           <AiOutlineFolderAdd
             size={25}
             color={`${active === 4 ? "crimson" : "#555"}`}
@@ -71,7 +69,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-events" className="w-full flex items-center">
+        <Link to="/shop/events" className="w-full flex items-center">
           <MdOutlineLocalOffer
             size={25}
             color={`${active === 5 ? "crimson" : "#555"}`}
@@ -86,7 +84,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-create-event" className="w-full flex items-center">
+        <Link to="/shop/create-event" className="w-full flex items-center">
           <VscNewFile
             size={25}
             color={`${active === 6 ? "crimson" : "#555"}`}
@@ -101,9 +99,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link
-          to="/dashboard-withdraw-money"
-          className="w-full flex items-center">
+        <Link to="/shop/withdraw-money" className="w-full flex items-center">
           <CiMoneyBill
             size={25}
             color={`${active === 7 ? "crimson" : "#555"}`}
@@ -118,7 +114,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-messages" className="w-full flex items-center">
+        <Link to="/shop/messages" className="w-full flex items-center">
           <BiMessageSquareDetail
             size={25}
             color={`${active === 8 ? "crimson" : "#555"}`}
@@ -133,7 +129,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-coupouns" className="w-full flex items-center">
+        <Link to="/shop/coupouns" className="w-full flex items-center">
           <AiOutlineGift
             size={25}
             color={`${active === 9 ? "crimson" : "#555"}`}
@@ -148,7 +144,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-refunds" className="w-full flex items-center">
+        <Link to="/shop/refunds" className="w-full flex items-center">
           <HiOutlineReceiptRefund
             size={25}
             color={`${active === 10 ? "crimson" : "#555"}`}
@@ -163,7 +159,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/settings" className="w-full flex items-center">
+        <Link to="/shop/settings" className="w-full flex items-center">
           <CiSettings
             size={25}
             color={`${active === 11 ? "crimson" : "#555"}`}

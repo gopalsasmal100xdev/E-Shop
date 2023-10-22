@@ -51,13 +51,15 @@ const DashboardHeader = () => {
               className="mx-5 cursor-pointer"
             />
           </Link>
-          <Link to={`/shop/${seller._id}`}>
-            <img
-              src={`${SERVER_URL}/${seller.avatar?.url}`}
-              alt=""
-              className="w-[50px] h-[50px] rounded-full object-cover"
-            />
-          </Link>
+          {seller.avatar && (
+            <Link to={`/shop/${seller._id}`}>
+              <img
+                src={`${SERVER_URL}/${seller.avatar?.url}`}
+                alt=""
+                className="w-[50px] h-[50px] rounded-full object-cover"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </div>
