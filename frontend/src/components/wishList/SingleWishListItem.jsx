@@ -20,10 +20,10 @@ const SingleWishListItem = ({ data }) => {
         <div className="w-[230px] pl-[5px]">
           <h1>{data.name}</h1>
           <h4 className="font-[400] text-[15px] text-[#00000082]">
-            ${data.discountPrice} * {data.qty}
+            ₹{data.discountPrice} * {data.qty}
           </h4>
           <h4 className="font-[600] text-[13px] pt-[3px] text-[#d02222] font-Roboto">
-            US${totalPrice}
+            ₹{totalPrice}
           </h4>
         </div>
         <div>

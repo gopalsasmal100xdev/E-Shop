@@ -46,11 +46,11 @@ const ProductCard = ({ data }) => {
         <div className="py-2 flex items-center justify-between">
           <div className="flex">
             <h5 className={`${styles.productDiscountPrice}`}>
-              {data.price === 0 ? data.price : data.discount_price}$
+              ₹{data.price === 0 ? data.price : data.discount_price}
             </h5>
 
             <h4 className={`${styles.price}`}>
-              {data.price ? data.price + " $" : null}
+              {data.price ? "₹" + data.price : null}
             </h4>
           </div>
           {data.total_sell && (

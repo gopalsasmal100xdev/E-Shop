@@ -76,7 +76,7 @@ const AllOrders = () => {
       row.push({
         id: item.id, // this id will replace with _id
         title: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: "₹ " + item.totalPrice,
         status:
           item.status === "success" ? (
             <span className="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">

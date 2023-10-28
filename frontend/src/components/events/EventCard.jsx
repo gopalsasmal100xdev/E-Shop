@@ -36,14 +36,14 @@ const EventCard = () => {
         <div className="flex py-2 justify-between">
           <div className="flex">
             <h5 className="font-[500] text-[18px] text-[#d55b45] pr-3 line-through">
-              1099$
+              ₹ 1,59,900
             </h5>
             <h5 className="font-bold text-[20px] text-[#333] font-Roboto">
-              1069$
+              ₹ 1,79,900
             </h5>
           </div>
           <span className="pr-3 font-[400] text-[17px] text-[#44a55e]">
-            {1230} sold
+            {(59, 900)} sold
           </span>
         </div>
         {/* Event Countdown  */}

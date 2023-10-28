@@ -228,6 +228,13 @@ export const categoriesData = [
       "https://cdn.shopify.com/s/files/1/1706/9177/products/NEWAppleMacbookProwithM1ProChip14InchLaptop2021ModelMKGQ3LL_A_16GB_1TBSSD_custommacbd.jpg?v=1659592838",
   },
   {
+    id: 11,
+    title: "Watches",
+    subTitle: "",
+    image_Url: "https://m.media-amazon.com/images/I/71mrPewvFUL._SL1500_.jpg",
+  },
+
+  {
     id: 2,
     title: "cosmetics and body care",
     subTitle: "",

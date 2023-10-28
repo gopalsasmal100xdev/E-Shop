@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const UserRouter = require("./routers/user.routing");
 const homeRouter = require("./routers/home.routing");
 const ShopRouter = require("./routers/shop.routing");
+const ProductsRouter = require("./routers/product.routing");
 const cors = require("cors");
 const morgan = require("morgan");
 const session = require("express-session");
@@ -61,6 +62,7 @@ app.use(function (req, res, next) {
 app.use("/", homeRouter);
 app.use("/api/v2/user", UserRouter);
 app.use("/api/v2/shop", ShopRouter);
+app.use("/api/v2/products", ProductsRouter);
 
 // it's is a Error handler middleware
 app.use((error, req, res, next) => {

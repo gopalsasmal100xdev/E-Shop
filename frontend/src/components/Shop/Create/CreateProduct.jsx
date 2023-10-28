@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { categoriesData } from "../../../static/data";
-import { useDispatch, useSelector } from "react-redux";
-import { createProduct } from "../../../redux/reducers/Product";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { SERVER_PRODUCTS_URL } from "../../../constants/data";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
-  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -16,13 +18,15 @@ const CreateProduct = () => {
   const [stock, setStock] = useState("");
   const [images, setImages] = useState([]);
   const [viewImage, setViewImage] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    images.forEach((image) => {
-      formData.set("images", image);
-    });
+    console.log(images);
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
     formData.append("name", name);
     formData.append("description", description);
     formData.append("category", category);
@@ -31,16 +35,27 @@ const CreateProduct = () => {
     formData.append("discountPrice", discountPrice);
     formData.append("stock", stock);
     formData.append("shopId", seller._id);
-    dispatch(createProduct());
+    axios
+      .post(`${SERVER_PRODUCTS_URL}/create-product`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        toast.success("Product created successfully!");
+        navigate("/shop/dashboard");
+      })
+      .catch(() => {
+        toast.error("Filed to create product!");
+      });
   };
   const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setViewImage((prev) => [
-        ...prev,
-        URL.createObjectURL(event.target.files[0]),
-      ]); // set for view the image
-    }
-    setImages((prev) => [...prev, event.target.files[0]]);
+    setViewImage((prev) => [
+      ...prev,
+      URL.createObjectURL(event.target.files[0]),
+    ]);
+    const file = Array.from(event.target.files);
+    setImages((prev) => [...prev, ...file]);
   };
 
   return (
@@ -56,6 +71,7 @@ const CreateProduct = () => {
             type="text"
             name="name"
             value={name}
+            required
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your product name..."
@@ -157,10 +173,10 @@ const CreateProduct = () => {
           </label>
           <input
             type="file"
-            name=""
+            multiple
+            name="images"
             id="upload"
             className="hidden"
-            multiple
             onChange={handleImageChange}
           />
           <div className="w-full flex items-center flex-wrap">
@@ -177,7 +193,7 @@ const CreateProduct = () => {
                 <img
                   src={i}
                   key={i}
-                  alt=""
+                  alt="selected_images"
                   className="h-[120px] w-[120px] rounded-md object-cover m-2"
                 />
               ))}

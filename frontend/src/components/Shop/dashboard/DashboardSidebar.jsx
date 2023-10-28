@@ -42,7 +42,7 @@ const DashboardSidebar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/shop/products" className="w-full flex items-center">
+        <Link to="/shop/all-products" className="w-full flex items-center">
           <FiPackage size={25} color={`${active === 3 ? "crimson" : "#555"}`} />
           <h5
             className={`hidden 800px:block pl-2 text-[18px] font-[400] ${

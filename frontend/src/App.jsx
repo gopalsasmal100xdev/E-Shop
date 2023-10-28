@@ -21,6 +21,7 @@ import ShopDashboardPage from "./components/Shop/pages/ShopDashboardPage";
 import SellerProtectedRoute from "./components/ProtectedRoutes/SellerLoginProtectedRoute";
 import ShopProfilePage from "./components/Shop/Profile/ShopProfilePage";
 import ShopCreateProductPage from "./components/Shop/pages/ShopCreateProductPage";
+import ShopAllProductsPage from "./components/Shop/pages/ShopAllProductsPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,14 @@ const App = () => {
             element={
               <SellerProtectedRoute>
                 <ShopCreateProductPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="all-products"
+            element={
+              <SellerProtectedRoute>
+                <ShopAllProductsPage />
               </SellerProtectedRoute>
             }
           />
