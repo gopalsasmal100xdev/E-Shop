@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 import { categoriesData } from "../../../static/data";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
@@ -9,6 +9,7 @@ import { SERVER_PRODUCTS_URL } from "../../../constants/data";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
+  const [loadingBTN, setLoadingBTN] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -22,8 +23,8 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoadingBTN(true);
     const formData = new FormData();
-    console.log(images);
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
     }
@@ -43,19 +44,28 @@ const CreateProduct = () => {
       })
       .then(() => {
         toast.success("Product created successfully!");
-        navigate("/shop/dashboard");
+        setLoadingBTN(false);
+        navigate("/shop/all-products");
       })
       .catch(() => {
+        setLoadingBTN(false);
         toast.error("Filed to create product!");
       });
   };
   const handleImageChange = (event) => {
-    setViewImage((prev) => [
-      ...prev,
-      URL.createObjectURL(event.target.files[0]),
-    ]);
-    const file = Array.from(event.target.files);
-    setImages((prev) => [...prev, ...file]);
+    if (event.target.files) {
+      const file = Array.from(event.target.files);
+      setViewImage((prev) => [
+        ...prev,
+        URL.createObjectURL(event.target.files[0]),
+      ]);
+      setImages((prev) => [...prev, ...file]);
+    }
+  };
+
+  const clearAllImages = () => {
+    setImages([]);
+    setViewImage([]);
   };
 
   return (
@@ -171,6 +181,15 @@ const CreateProduct = () => {
           <label className="pb-2">
             Upload Images <span className="text-red-500">*</span>
           </label>
+          <AiOutlineClear
+            size={20}
+            color="green"
+            className={`${
+              viewImage.length === 0 ? "hidden" : ""
+            } cursor-pointer m-2`}
+            title="Clear all images"
+            onClick={clearAllImages}
+          />
           <input
             type="file"
             multiple
@@ -202,7 +221,8 @@ const CreateProduct = () => {
           <div>
             <input
               type="submit"
-              value="Create"
+              value={`${loadingBTN ? "Creating..." : "Create"}`}
+              disabled={loadingBTN}
               className="mt- cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-blue-500 hover:bg-blue-500 sm:text-sm"
             />
           </div>

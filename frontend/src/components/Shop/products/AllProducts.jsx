@@ -1,16 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../../redux/reducers/Product";
+import { deleteProduct, getAllProducts } from "../../../redux/reducers/Product";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useMediaQuery,
+} from "@mui/material";
+import { AiOutlineDelete, AiOutlineEye, AiTwotoneDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { SERVER_URL } from "../../../constants/data";
+import { useTheme } from "@mui/material/styles";
+import NoDataFound from "../../NoData/NoDataFound";
 
 const AllProducts = () => {
   const { seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const columns = [
     {
@@ -85,9 +106,35 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
+            <Button onClick={handleClickOpen}>
+              <AiOutlineDelete size={20} color={"red"} />
             </Button>
+            <Dialog
+              fullScreen={fullScreen}
+              open={open}
+              onClose={() => handleClose()}
+              aria-labelledby="responsive-dialog-title">
+              <DialogTitle id="responsive-dialog-title">
+                {"Delete Product"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this product?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" onClick={() => setOpen(false)}>
+                  cancel
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<AiTwotoneDelete />}
+                  color="error"
+                  onClick={() => handleDelete(params.id)}>
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
           </>
         );
       },
@@ -107,19 +154,26 @@ const AllProducts = () => {
       });
     });
 
-  const handleDelete = () => {};
+  const handleDelete = (id) => {
+    setOpen(false);
+    dispatch(deleteProduct(id));
+  };
 
   useEffect(() => {
     dispatch(getAllProducts(seller._id));
-  }, [dispatch, products?.length, seller._id]);
+  }, [dispatch, seller._id]);
   return (
     <div className="w-full mx-8 pt-1 mt-10 bg-white">
-      <DataGrid
-        rows={row}
-        columns={columns}
-        pageSize={10}
-        disableSelectionOnClick
-      />
+      {products.length > 0 ? (
+        <DataGrid
+          rows={row}
+          columns={columns}
+          pageSize={10}
+          disableSelectionOnClick
+        />
+      ) : (
+        <NoDataFound />
+      )}
     </div>
   );
 };

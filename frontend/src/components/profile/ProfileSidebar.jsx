@@ -12,21 +12,29 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { TbAddressBook, TbLogout } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogCloseButton,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
   Button,
-  useDisclosure,
-} from "@chakra-ui/react";
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useMediaQuery,
+} from "@mui/material";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { useTheme } from "@mui/material/styles";
+import { useState } from "react";
 
 const ProfileSidebar = ({ active, setActive }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -159,7 +167,7 @@ const ProfileSidebar = ({ active, setActive }) => {
         className="single_item flex items-center cursor-pointer w-full mb-8"
         onClick={() => {
           setActive(10);
-          onOpen();
+          handleClickOpen();
         }}>
         <TbLogout size={20} color={active === 10 ? "red" : ""} />
         <span
@@ -168,26 +176,30 @@ const ProfileSidebar = ({ active, setActive }) => {
           } 800px:block hidden`}>
           Log out
         </span>
-        <AlertDialog
-          motionPreset="slideInBottom"
-          onClose={onClose}
-          isOpen={isOpen}
-          isCentered>
-          <AlertDialogOverlay />
-
-          <AlertDialogContent>
-            <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
-            <AlertDialogCloseButton />
-            <AlertDialogBody>Are you sure you want to logout?</AlertDialogBody>
-            <AlertDialogFooter>
-              <Button onClick={onClose}>No</Button>
-              <Button colorScheme="red" ml={3} onClick={logoutHandler}>
-                Yes
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </div>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={() => handleClose()}
+        aria-labelledby="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title">{"Log out"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={() => handleClose()}>
+            cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => logoutHandler()}>
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

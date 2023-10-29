@@ -25,7 +25,6 @@ const ShopLogin = () => {
       })
       .then((res) => {
         const { name } = res.data.data;
-        console.log(res.data);
         Cookies.set("seller_token", res.data.token, { expires: 7 });
         toast(`Welcome back ${name} to your shop`, {
           icon: "🎉",

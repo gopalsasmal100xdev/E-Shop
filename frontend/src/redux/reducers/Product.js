@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SERVER_PRODUCTS_URL } from "../../constants/data";
+import { toast } from "react-hot-toast";
 
 const initialState = {
   loading: false,
@@ -29,6 +30,17 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "products/delete-product",
+  async (id) => {
+    return axios
+      .delete(`${SERVER_PRODUCTS_URL}/delete-shop-product/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => res.data);
+  }
+);
+
 const ProductSlice = createSlice({
   name: "Product",
   initialState,
@@ -46,6 +58,21 @@ const ProductSlice = createSlice({
       .addCase(getAllProducts.rejected, (state, action) => {
         state.loading = false;
         state.products = [];
+        toast.error("Faild to load all products!");
+        state.error = action.error.message;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.loading = false;
+        toast.success("Product deleted successfully!");
+        state.error = "";
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.products = [];
+        toast.error("Faild to delete product!");
         state.error = action.error.message;
       });
   },
