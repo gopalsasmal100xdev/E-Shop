@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles";
 import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import { SERVER_URL } from "../../constants/data";
 
 const ProductDetailsModal = ({ data }) => {
   const [click, setClick] = useState(false);
@@ -62,17 +63,19 @@ const ProductDetailsModal = ({ data }) => {
           />
           <div className="block w-full md:flex">
             <div className="w-full">
-              <img
-                src={`${data.image_Url && data.image_Url[0]?.url}`}
-                alt="product_image"
-              />
+              {data.images && (
+                <img
+                  src={`${SERVER_URL}/${data.images[0]}`}
+                  alt="product_image"
+                />
+              )}
               <div className="flex">
                 {/* this link will be replace with Shop link */}
                 <Link to={"/"} className="flex">
                   <img
-                    src={data.shop.shop_avatar.url}
+                    src={`${SERVER_URL}/${data.shop?.avatar?.url}`}
                     alt="shop"
-                    className="w-[50px] h-[50px] bg-cover rounded-full mr-2"
+                    className="w-[50px] h-[50px] object-cover rounded-full mr-2"
                   />
                   <div>
                     <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>

@@ -1,18 +1,26 @@
 import Header from "../layout/Header";
 import styles from "../../styles/styles";
-import { productData } from "../../static/data";
 import ProductCard from "../home/productCard/ProductCard";
 import Footer from "../layout/Footer";
 import NoData from "../../../src/assets/svg/Questions-amico.svg";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/reducers/Product";
 
 const Products = () => {
+  const { products } = useSelector((state) => state.products);
   const [searchParams] = useSearchParams();
   const categoryData = searchParams.get("category");
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const productData = [...products];
     if (!categoryData) {
       const sortedData =
         productData && productData.sort((a, b) => a.total_sell - b.total_sell);
@@ -24,7 +32,7 @@ const Products = () => {
       setData(sortedData);
     }
     window.scrollTo(0, 0);
-  }, [categoryData]);
+  }, [categoryData, products]);
 
   return (
     <div>

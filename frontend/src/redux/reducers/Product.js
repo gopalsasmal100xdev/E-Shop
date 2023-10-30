@@ -30,6 +30,15 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const getProducts = createAsyncThunk(
+  "products/get-products",
+  async () => {
+    return axios
+      .get(`${SERVER_PRODUCTS_URL}/get-all-products`)
+      .then((res) => res.data.data);
+  }
+);
+
 export const deleteProduct = createAsyncThunk(
   "products/delete-product",
   async (id) => {
@@ -73,6 +82,20 @@ const ProductSlice = createSlice({
         state.loading = false;
         state.products = [];
         toast.error("Faild to delete product!");
+        state.error = action.error.message;
+      })
+      .addCase(getProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+        state.error = "";
+      })
+      .addCase(getProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.products = [];
+        toast.error("Faild to get all products!");
         state.error = action.error.message;
       });
   },

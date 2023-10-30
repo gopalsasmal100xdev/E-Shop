@@ -8,22 +8,22 @@ import {
 } from "react-icons/ai";
 import ProductDetailsModal from "../../modals/ProductDetailsModal";
 import Ratings from "../../Products/Ratings";
+import { SERVER_URL } from "../../../constants/data";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ data }) => {
   const [click, setClick] = useState(false);
-  // const [open, setOpen] = useState(false);
 
   const item_name = data.name;
-  const item_id = data.id; // this id should be replaced with _id
+  const item_id = data._id; // this id should be replaced with _id
   const product_name = item_name.replace(/\s+/g, "-");
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer ease-in-out delay-50 hover:-translate-y-1 hover:scale-100 duration-300">
       <div className="flex justify-end"></div>
       <Link to={`/products/${product_name}[]=${item_id}`}>
-        {data.image_Url && (
+        {data.images && (
           <img
-            src={`${data.image_Url[0]?.url}`}
+            src={`${SERVER_URL}/${data.images[0]}`}
             alt="products"
             className="w-full h-[170px] object-contain"
           />
@@ -46,11 +46,14 @@ const ProductCard = ({ data }) => {
         <div className="py-2 flex items-center justify-between">
           <div className="flex">
             <h5 className={`${styles.productDiscountPrice}`}>
-              ₹{data.price === 0 ? data.price : data.discount_price}
+              ₹
+              {data.originalPrice === 0
+                ? data.originalPrice
+                : data.discountPrice}
             </h5>
 
             <h4 className={`${styles.price}`}>
-              {data.price ? "₹" + data.price : null}
+              {data.originalPrice ? "₹" + data.originalPrice : null}
             </h4>
           </div>
           {data.total_sell && (

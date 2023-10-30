@@ -1,20 +1,28 @@
 import Header from "../layout/Header";
 import styles from "../../styles/styles";
-import { productData } from "../../static/data";
 import ProductCard from "../home/productCard/ProductCard";
 import Footer from "../layout/Footer";
 import NoData from "../../../src/assets/svg/Questions-amico.svg";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/reducers/Product";
 
 const BestSellingPage = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
+  const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const productData = [...products];
     const sortedData =
       productData && productData.sort((a, b) => b.total_sell - a.total_sell);
     setData(sortedData);
     window.scrollTo(0, 0);
-  }, []);
+  }, [products]);
 
   return (
     <div>

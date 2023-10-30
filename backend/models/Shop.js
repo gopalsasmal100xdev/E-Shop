@@ -42,6 +42,10 @@ const shopSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  ratings: {
+    type: Number,
+    default: 5,
+  },
   withdrawMethod: {
     type: Object,
   },

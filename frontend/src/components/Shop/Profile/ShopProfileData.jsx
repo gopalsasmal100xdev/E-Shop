@@ -1,19 +1,21 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../styles/styles";
-import { Link } from "react-router-dom";
-import { productData } from "../../../static/data";
+import { Link, useParams } from "react-router-dom";
 import ProductCard from "../../home/productCard/ProductCard";
-// import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { getAllProducts } from "../../../redux/reducers/Product";
+import { useDispatch } from "react-redux";
 
 const ShopProfileData = ({ isOwner }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [active, setActive] = useState(1);
-  // const { id } = useParams();
-  // const { products } = useSelector((state) => state.products);
-  // useEffect(()=>{
-  //   dispatch();
-  // },[dispatch,id])
+  const { products } = useSelector((state) => state.products);
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getAllProducts(id));
+  }, [dispatch, id]);
 
   return (
     <div className="w-full">
@@ -61,8 +63,8 @@ const ShopProfileData = ({ isOwner }) => {
       <br />
       {active === 1 && (
         <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-          {productData &&
-            productData.map((item, index) => (
+          {products &&
+            products.map((item, index) => (
               <ProductCard data={item} key={index} />
             ))}
         </div>
