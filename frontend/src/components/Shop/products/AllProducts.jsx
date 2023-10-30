@@ -11,11 +11,11 @@ import {
   DialogTitle,
   useMediaQuery,
 } from "@mui/material";
-import { AiOutlineDelete, AiOutlineEye, AiTwotoneDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { AiOutlineDelete, AiTwotoneDelete } from "react-icons/ai";
 import { SERVER_URL } from "../../../constants/data";
 import { useTheme } from "@mui/material/styles";
 import NoDataFound from "../../NoData/NoDataFound";
+import ShopProductView from "../../modals/ShopProductView";
 
 const AllProducts = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -87,11 +87,7 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/product/${params.id}`}>
-              <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
+            <ShopProductView data={params.row.data} />
           </>
         );
       },
@@ -151,6 +147,7 @@ const AllProducts = () => {
         price: "₹ " + item.discountPrice,
         Stock: item.stock,
         sold: item?.sold_out,
+        data: item,
       });
     });
 

@@ -17,11 +17,11 @@ import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { SERVER_URL } from "../../constants/data";
 import { SkeletonCircle } from "@chakra-ui/react";
-import WishListDrawer from "./WishListDrawer";
-import CartDrawer from "./CartDrawer";
 import { BiMenuAltLeft } from "react-icons/bi";
 import styles from "../../styles/styles";
 import { RxCross1 } from "react-icons/rx";
+import CartDialog from "./CartDialog";
+import WishListDialog from "./WishListDialog";
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ activeHeading }) => {
@@ -168,7 +168,7 @@ const Header = ({ activeHeading }) => {
             {/* wish list */}
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-                <WishListDrawer />
+                <WishListDialog />
               </div>
             </div>
 
@@ -176,7 +176,7 @@ const Header = ({ activeHeading }) => {
 
             <div className={`${Styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-                <CartDrawer />
+                <CartDialog />
               </div>
             </div>
 
@@ -326,8 +326,8 @@ const Header = ({ activeHeading }) => {
             )}
           </div>
           <div className="flex gap-3 mr-3">
-            <CartDrawer />
-            <WishListDrawer />
+            <CartDialog />
+            <WishListDialog />
           </div>
         </div>
       </div>

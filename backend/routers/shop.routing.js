@@ -114,4 +114,18 @@ router
     res.json({ message: "Please go back to home page" });
   });
 
+router.route("/get-shop-info/:id").get(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const shopInfo = await Shop.findById(id);
+    if (!shopInfo) {
+      res.status().json({ message: "Invalid shop id" });
+    } else {
+      res.status(200).json({ shopInfo });
+    }
+  } catch (error) {
+    res.status().json({ message: `error - ${error}` });
+  }
+});
+
 module.exports = router;

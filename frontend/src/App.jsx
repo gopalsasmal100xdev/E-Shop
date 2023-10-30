@@ -14,7 +14,17 @@ import { useEffect } from "react";
 import { fetchUser } from "./redux/reducers/User";
 import { CheckoutPage, PaymentPage, ProductDetailsPage } from "./components";
 import LogedInProtectedRoute from "./components/ProtectedRoutes/LogedInProtectedRoute";
-import { ShopLoginPage, ShopRegisterPage } from "./components/Shop/pages";
+import {
+  ShopAllEventsPage,
+  ShopAllOrdersPage,
+  ShopDiscountPage,
+  ShopInboxPage,
+  ShopLoginPage,
+  ShopRefundsPage,
+  ShopRegisterPage,
+  ShopSettingsPage,
+  ShopWithDrawMoneyPage,
+} from "./components/Shop/pages";
 import PageNotFound from "./pages/PageNotFound";
 import { fetchSeller } from "./redux/reducers/Seller";
 import ShopDashboardPage from "./components/Shop/pages/ShopDashboardPage";
@@ -22,6 +32,7 @@ import SellerProtectedRoute from "./components/ProtectedRoutes/SellerLoginProtec
 import ShopProfilePage from "./components/Shop/Profile/ShopProfilePage";
 import ShopCreateProductPage from "./components/Shop/pages/ShopCreateProductPage";
 import ShopAllProductsPage from "./components/Shop/pages/ShopAllProductsPage";
+import ShopCreateEventPage from "./components/Shop/pages/ShopCreateEventPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -62,6 +73,14 @@ const App = () => {
             }
           />
           <Route
+            path="orders"
+            element={
+              <SellerProtectedRoute>
+                <ShopAllOrdersPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
             path="create-product"
             element={
               <SellerProtectedRoute>
@@ -77,11 +96,60 @@ const App = () => {
               </SellerProtectedRoute>
             }
           />
+          <Route path=":id" element={<ShopProfilePage />} />
           <Route
-            path=":id"
+            path="create-event"
             element={
               <SellerProtectedRoute>
-                <ShopProfilePage />
+                <ShopCreateEventPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="withdraw-money"
+            element={
+              <SellerProtectedRoute>
+                <ShopWithDrawMoneyPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="events"
+            element={
+              <SellerProtectedRoute>
+                <ShopAllEventsPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="coupons"
+            element={
+              <SellerProtectedRoute>
+                <ShopDiscountPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="inbox"
+            element={
+              <SellerProtectedRoute>
+                <ShopInboxPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="refunds"
+            element={
+              <SellerProtectedRoute>
+                <ShopRefundsPage />
+              </SellerProtectedRoute>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <SellerProtectedRoute>
+                <ShopSettingsPage />
               </SellerProtectedRoute>
             }
           />

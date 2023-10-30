@@ -5,9 +5,9 @@ import { categoriesData } from "../../../static/data";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { SERVER_PRODUCTS_URL } from "../../../constants/data";
+import { SERVER_EVENTS_URL } from "../../../constants/data";
 
-const CreateProduct = () => {
+const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
   const [loadingBTN, setLoadingBTN] = useState(false);
   const [name, setName] = useState("");
@@ -17,9 +17,32 @@ const CreateProduct = () => {
   const [originalPrice, setOriginalPrice] = useState("");
   const [discountPrice, setDiscountPrice] = useState("");
   const [stock, setStock] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [images, setImages] = useState([]);
   const [viewImage, setViewImage] = useState([]);
   const navigate = useNavigate();
+
+  const today = new Date().toISOString().slice(0, 10);
+  const minEndDate = startDate
+    ? new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10)
+    : "";
+  const handleStartDateChange = (e) => {
+    const startDate = new Date(e.target.value);
+    const minEndDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
+    setStartDate(startDate);
+    setEndDate(null);
+    document.getElementById("end-date").min = minEndDate.toISOString.slice(
+      0,
+      10
+    );
+  };
+  const handleEndDateChange = (e) => {
+    const endDate = new Date(e.target.value);
+    setEndDate(endDate);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,20 +59,23 @@ const CreateProduct = () => {
     formData.append("discountPrice", discountPrice);
     formData.append("stock", stock);
     formData.append("shopId", seller._id);
+    formData.append("start_Date", startDate?.toISOString());
+    formData.append("finish_Date", endDate?.toISOString());
+
     axios
-      .post(`${SERVER_PRODUCTS_URL}/create-product`, formData, {
+      .post(`${SERVER_EVENTS_URL}/create-event`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(() => {
-        toast.success("Product created successfully!");
+        toast.success("Event created successfully!");
         setLoadingBTN(false);
-        navigate("/shop/all-products");
+        navigate("/shop/events");
       })
       .catch(() => {
         setLoadingBTN(false);
-        toast.error("Filed to create product!");
+        toast.error("Filed to create event!");
       });
   };
   const handleImageChange = (event) => {
@@ -70,7 +96,7 @@ const CreateProduct = () => {
 
   return (
     <div className="w-[90%] 800px:w-[80%] bg-white  shadow h-[80vh] rounded-md p-3 overflow-y-scroll">
-      <h5 className="text-[30px] font-Poppins text-center">Create Product</h5>
+      <h5 className="text-[30px] font-Poppins text-center">Create Event</h5>
       <form onSubmit={handleSubmit}>
         <br />
         <div>
@@ -84,7 +110,7 @@ const CreateProduct = () => {
             required
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your product name..."
+            placeholder="Enter your event product name..."
           />
         </div>
         <br />
@@ -173,7 +199,39 @@ const CreateProduct = () => {
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setStock(e.target.value)}
-            placeholder="Enter your product stock..."
+            placeholder="Enter your Event product stock..."
+          />
+        </div>
+        <br />
+        <div>
+          <label className="pb-2">
+            Event Start Date <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            name="price"
+            id="start-date"
+            value={startDate ? startDate.toISOString().slice(0, 10) : ""}
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleStartDateChange}
+            min={today}
+            placeholder="Enter your event product stock..."
+          />
+        </div>
+        <br />
+        <div>
+          <label className="pb-2">
+            Event End Date <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            name="price"
+            id="start-date"
+            value={endDate ? endDate.toISOString().slice(0, 10) : ""}
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleEndDateChange}
+            min={minEndDate}
+            placeholder="Enter your event product stock..."
           />
         </div>
         <br />
@@ -232,4 +290,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default CreateEvent;
