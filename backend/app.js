@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const UserRouter = require("./routers/user.routing");
 const homeRouter = require("./routers/home.routing");
+const CouponRouter = require("./routers/couponCode.routing");
 const ShopRouter = require("./routers/shop.routing");
 const ProductsRouter = require("./routers/product.routing");
 const EventsRouter = require("./routers/event.routing");
@@ -65,6 +66,7 @@ app.use("/api/v2/user", UserRouter);
 app.use("/api/v2/shop", ShopRouter);
 app.use("/api/v2/products", ProductsRouter);
 app.use("/api/v2/events", EventsRouter);
+app.use("/api/v2/coupon", CouponRouter);
 
 // it's is a Error handler middleware
 app.use((error, req, res, next) => {

@@ -20,7 +20,7 @@ const ProductDetailsModal = ({ data }) => {
   const [open, setOpen] = useState(false);
 
   const item_name = data.name;
-  const item_id = data.id; // TODO after depoly this should be _id
+  const item_id = data._id;
   const product_name = item_name.replace(/\s+/g, "-");
 
   const incrementCount = () => {

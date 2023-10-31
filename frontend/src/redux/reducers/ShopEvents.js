@@ -27,6 +27,15 @@ export const deleteShopEvents = createAsyncThunk(
   }
 );
 
+export const getShopEvents = createAsyncThunk(
+  "shopEvents/getShopEvents",
+  async (id) => {
+    return axios
+      .get(`${SERVER_SHOP_EVENTS_URL_API}/get-shop-events/${id}`)
+      .then((res) => res.data);
+  }
+);
+
 const ShopEventsSlice = createSlice({
   name: "Shop Events",
   initialState,
@@ -56,7 +65,22 @@ const ShopEventsSlice = createSlice({
       })
       .addCase(deleteShopEvents.rejected, (state) => {
         state.loading = false;
+        state.events = [];
         toast.error("Failed to delete event!");
+      })
+      .addCase(getShopEvents.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getShopEvents.fulfilled, (state, action) => {
+        state.loading = false;
+        state.events = action.payload;
+        state.error = "";
+      })
+      .addCase(getShopEvents.rejected, (state, action) => {
+        state.loading = false;
+        state.events = [];
+        toast.error("Failed to fetch events for shop!");
+        state.error = action.error.message;
       });
   },
 });

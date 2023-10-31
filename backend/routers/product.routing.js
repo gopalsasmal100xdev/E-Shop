@@ -4,6 +4,7 @@ const Product = require("../models/Product");
 const { upload } = require("../middleware/multer");
 const Router = express.Router();
 const { isSellerAuthenticated } = require("../middleware/Auth");
+const fs = require("fs");
 
 Router.route("/create-product")
   .get((req, res) => {
@@ -36,7 +37,7 @@ Router.route("/create-product")
       });
     }
   });
-
+// id refers to the shop id
 Router.route("/get-all-products/:id")
   .get(async (req, res) => {
     try {
@@ -84,6 +85,12 @@ Router.route("/delete-shop-product/:id")
       if (!product) {
         res.status(404).json({ message: "Product id is not valid!" });
       } else {
+        const imageUrls = product.images;
+        imageUrls.forEach((url) => {
+          fs.unlink(`uploads/${url}`, (err) => {
+            console.log(err);
+          });
+        });
         res
           .status(200)
           .json({ success: true, message: "Product successfully deleted!" });

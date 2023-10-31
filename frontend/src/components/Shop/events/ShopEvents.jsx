@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { TbReload } from "react-icons/tb";
 import {
   deleteShopEvents,
-  getShopAllEvents,
+  getShopEvents,
 } from "../../../redux/reducers/ShopEvents";
 import ShopProductView from "../../modals/ShopProductView";
 import { useTheme } from "@emotion/react";
@@ -25,6 +25,7 @@ import { SERVER_URL } from "../../../constants/data";
 
 const ShopEvents = () => {
   const { loading, events } = useSelector((state) => state.shopEvents);
+  const { seller } = useSelector((state) => state.seller);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -54,7 +55,14 @@ const ShopEvents = () => {
         );
       },
     },
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Product id", minWidth: 150, flex: 0.7 },
+    {
+      field: "eventName",
+      headerName: "Events name",
+      minWidth: 150,
+      flex: 0.7,
+      type: "string",
+    },
     {
       field: "name",
       headerName: "Name",
@@ -97,20 +105,15 @@ const ShopEvents = () => {
         );
       },
     },
-
     {
       field: "Delete",
       flex: 0.8,
-      minWidth: 120,
       headerName: "",
       type: "number",
       sortable: false,
       renderCell: (params) => {
         return (
           <>
-            {/* <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} color="red" />
-            </Button> */}
             <Button onClick={handleClickOpen}>
               <AiOutlineDelete size={20} color={"red"} />
             </Button>
@@ -159,28 +162,30 @@ const ShopEvents = () => {
     },
   ];
   const row = [];
-  events.forEach((item) => {
-    row.push({
-      id: item._id,
-      name: item.name,
-      price: "₹ " + item.discountPrice,
-      Stock: item.stock,
-      sold: item.sold_out,
-      url: item.images?.[0],
-      data: item,
+  events &&
+    events.forEach((item) => {
+      row.push({
+        id: item._id,
+        eventName: item.eventName,
+        name: item.name,
+        price: "₹ " + item.discountPrice,
+        Stock: item.stock,
+        sold: item.sold_out,
+        url: item.images?.[0],
+        data: item,
+      });
     });
-  });
 
   const handleDelete = (id) => {
     setOpen(false);
     dispatch(deleteShopEvents(id));
   };
   function rerenderPage() {
-    dispatch(getShopAllEvents());
+    dispatch(getShopEvents(seller._id));
   }
   useEffect(() => {
-    dispatch(getShopAllEvents());
-  }, [dispatch]);
+    dispatch(getShopEvents(seller?._id));
+  }, [dispatch, seller?._id]);
 
   return (
     <>
@@ -188,7 +193,7 @@ const ShopEvents = () => {
         <Loader1 />
       ) : (
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
-          {events.length > 0 ? (
+          {events?.length > 0 ? (
             <>
               <DataGrid
                 rows={row}

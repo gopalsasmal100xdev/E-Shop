@@ -6,15 +6,20 @@ import ProductCard from "../../home/productCard/ProductCard";
 import { useSelector } from "react-redux";
 import { getAllProducts } from "../../../redux/reducers/Product";
 import { useDispatch } from "react-redux";
+import { Loader1 } from "../../Loader/Loader";
+import { getShopEvents } from "../../../redux/reducers/ShopEvents";
+import NoDataFound from "../../NoData/NoDataFound";
 
 const ShopProfileData = ({ isOwner }) => {
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
-  const { products } = useSelector((state) => state.products);
+  const { loading, products } = useSelector((state) => state.products);
+  const { events } = useSelector((state) => state.shopEvents);
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getAllProducts(id));
+    dispatch(getShopEvents(id));
   }, [dispatch, id]);
 
   return (
@@ -62,33 +67,38 @@ const ShopProfileData = ({ isOwner }) => {
 
       <br />
       {active === 1 && (
-        <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-          {products &&
-            products.map((item, index) => (
-              <ProductCard data={item} key={index} />
-            ))}
-        </div>
+        <>
+          {loading ? (
+            <Loader1 />
+          ) : (
+            <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
+              {products &&
+                products.map((item, index) => (
+                  <ProductCard data={item} key={index} />
+                ))}
+            </div>
+          )}
+        </>
       )}
 
       {active === 2 && (
         <div className="w-full">
-          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-            events
-            {/* {events &&
-              events.map((i, index) => (
+          {events.length > 0 ? (
+            <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
+              {events.map((item, index) => (
                 <ProductCard
-                  data={i}
+                  data={item}
                   key={index}
                   isShop={true}
                   isEvent={true}
                 />
-              ))} */}
-          </div>
-          {/* {events && events.length === 0 && (
-            <h5 className="w-full text-center py-5 text-[18px]">
-              No Events have for this shop!
-            </h5>
-          )} */}
+              ))}
+            </div>
+          ) : (
+            <div>
+              <NoDataFound />
+            </div>
+          )}
         </div>
       )}
 

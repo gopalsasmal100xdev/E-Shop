@@ -3,6 +3,7 @@ const Shop = require("../models/Shop");
 const Router = express.Router();
 const Event = require("../models/Event");
 const { upload } = require("../middleware/multer");
+const fs = require("fs");
 
 // create events
 Router.route("/create-event")
@@ -46,6 +47,17 @@ Router.route("/get-all-events").get(async (req, res) => {
   }
 });
 
+// return all events for a shop
+Router.route("/get-shop-events/:id").get(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const events = await Event.find({ shopId: id });
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(400).json({ message: error || "Error in getting events" });
+  }
+});
+
 // get a spacific event by id
 // GET req
 Router.route("/get-event/:id")
@@ -75,9 +87,16 @@ Router.route("/delete-shop-events/:id")
   .delete(async (req, res) => {
     try {
       const event = await Event.findByIdAndDelete(req.params.id);
+
       if (!event) {
         res.status(404).json({ message: "Invalid Event id" });
       } else {
+        const productsUrls = event.images;
+        productsUrls.forEach((url) => {
+          fs.unlink(`uploads/${url}`, (err) => {
+            console.log(err);
+          });
+        });
         res.status(201).json({
           success: true,
           message: "Event Deleted successfully!",
