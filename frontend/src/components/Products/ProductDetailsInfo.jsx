@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import Ratings from "./Ratings";
+import { SERVER_URL } from "../../constants/data";
 const ProductDetailsInfo = ({ data }) => {
   const [active, setActive] = useState(1);
 
@@ -85,11 +86,11 @@ const ProductDetailsInfo = ({ data }) => {
       {active === 3 && (
         <div className="w-full block 800px:flex p-5">
           <div className="w-full 800px:w-[50%]">
-            <Link to={`/shop/preview/${data.shop?._id}`}>
+            <Link to={`/shop/${data.shop?._id}`}>
               <div className="flex items-center">
                 <img
-                  src={`${data?.shop?.shop_avatar?.url}`}
-                  className="w-[50px] h-[50px] rounded-full"
+                  src={`${SERVER_URL}/${data?.shop?.avatar?.url}`}
+                  className="w-[50px] h-[50px] object-cover rounded-full"
                   alt="shop_avatar"
                 />
                 <div className="pl-3">
@@ -121,8 +122,7 @@ const ProductDetailsInfo = ({ data }) => {
                 Total Reviews: 3k
                 {/* <span className="font-[500]">{totalReviewsLength}</span> */}
               </h5>
-              <Link to="/">
-                {/* /shop link will be replace with / */}
+              <Link to={`/shop/${data?.shop?._id}`}>
                 <div
                   className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}>
                   <h4 className="text-white">Visit Shop</h4>

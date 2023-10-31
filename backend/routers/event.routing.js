@@ -74,7 +74,7 @@ Router.route("/delete-shop-events/:id")
   })
   .delete(async (req, res) => {
     try {
-      const event = await Event.findById(req.params.id);
+      const event = await Event.findByIdAndDelete(req.params.id);
       if (!event) {
         res.status(404).json({ message: "Invalid Event id" });
       } else {

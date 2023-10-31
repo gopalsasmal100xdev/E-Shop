@@ -12,7 +12,7 @@ export const Loader1 = () => {
     },
   };
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-auto flex items-center justify-center">
       <Lottie options={defaultOptions} width={300} height={300} />
     </div>
   );
@@ -27,7 +27,7 @@ export const SuccessLoader = () => {
     },
   };
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-auto flex items-center justify-center">
       <Lottie options={defaultOptions} width={300} height={300} />
     </div>
   );

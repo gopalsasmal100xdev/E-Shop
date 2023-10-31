@@ -1,20 +1,22 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useState } from "react";
-import { productData } from "../../static/data";
 import styles from "../../styles/styles";
 import ProductCard from "../home/productCard/ProductCard";
 import NoDataFound from "../NoData/NoDataFound";
+import { useSelector } from "react-redux";
 
 const SuggestedProducts = ({ data }) => {
+  const { products } = useSelector((state) => state.products);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
+    const productData = [...products];
     const d = productData.filter(
-      (item) => item.category === data.category && item.id !== data.id
+      (item) => item.category === data.category && item._id !== data._id
     );
     setFilteredProducts(d);
-  }, [data.category, data.id]);
+  }, [data._id, data.category, data.id, products]);
 
   return (
     <>

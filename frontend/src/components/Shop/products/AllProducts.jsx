@@ -16,9 +16,11 @@ import { SERVER_URL } from "../../../constants/data";
 import { useTheme } from "@mui/material/styles";
 import NoDataFound from "../../NoData/NoDataFound";
 import ShopProductView from "../../modals/ShopProductView";
+import { TbReload } from "react-icons/tb";
+import { Loader1 } from "../../Loader/Loader";
 
 const AllProducts = () => {
-  const { seller } = useSelector((state) => state.seller);
+  const { loading, seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -32,7 +34,9 @@ const AllProducts = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  function rerenderPage() {
+    dispatch(getAllProducts(seller._id));
+  }
   const columns = [
     {
       field: "image",
@@ -135,6 +139,19 @@ const AllProducts = () => {
         );
       },
     },
+    {
+      field: "Reload",
+      headerName: (
+        <TbReload
+          size={20}
+          className="cursor-pointer m-5"
+          color="green"
+          onClick={rerenderPage}
+        />
+      ),
+      type: "number",
+      sortable: false,
+    },
   ];
   const row = [];
 
@@ -160,18 +177,24 @@ const AllProducts = () => {
     dispatch(getAllProducts(seller._id));
   }, [dispatch, seller._id]);
   return (
-    <div className="w-full mx-8 pt-1 mt-10 bg-white">
-      {products.length > 0 ? (
-        <DataGrid
-          rows={row}
-          columns={columns}
-          pageSize={10}
-          disableSelectionOnClick
-        />
+    <>
+      {loading ? (
+        <Loader1 />
       ) : (
-        <NoDataFound />
+        <div className="w-full mx-8 pt-1 mt-10 bg-white">
+          {products.length > 0 ? (
+            <DataGrid
+              rows={row}
+              columns={columns}
+              pageSize={10}
+              disableSelectionOnClick
+            />
+          ) : (
+            <NoDataFound />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

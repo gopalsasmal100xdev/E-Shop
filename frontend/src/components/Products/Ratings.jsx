@@ -3,7 +3,7 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
 
-const Ratings = ({ rating }) => {
+const Ratings = ({ rating = 5 }) => {
   const stars = [];
 
   for (let i = 1; i <= 5; i++) {

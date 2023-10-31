@@ -51,6 +51,16 @@ Router.route("/get-all-products/:id")
     res.status(201).json({ message: "There is no post request!" });
   });
 
+Router.route("/single-product/:id").get(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findById(id);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 Router.route("/get-all-products").get(async (req, res) => {
   try {
     const products = await Product.find({});

@@ -11,6 +11,7 @@ const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
   const [loadingBTN, setLoadingBTN] = useState(false);
   const [name, setName] = useState("");
+  const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState("");
@@ -51,6 +52,7 @@ const CreateEvent = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
     }
+    formData.append("eventName", eventName);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("category", category);
@@ -98,6 +100,21 @@ const CreateEvent = () => {
     <div className="w-[90%] 800px:w-[80%] bg-white  shadow h-[80vh] rounded-md p-3 overflow-y-scroll">
       <h5 className="text-[30px] font-Poppins text-center">Create Event</h5>
       <form onSubmit={handleSubmit}>
+        <br />
+        <div>
+          <label className="pb-2">
+            Event Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="eventName"
+            value={eventName}
+            required
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={(e) => setEventName(e.target.value)}
+            placeholder="Enter your event name..."
+          />
+        </div>
         <br />
         <div>
           <label className="pb-2">
