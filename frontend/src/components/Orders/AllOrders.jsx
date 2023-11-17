@@ -1,13 +1,12 @@
-import "react-data-grid/lib/styles.css";
-
-import DataGrid from "react-data-grid";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button, Chip } from "@mui/material";
 
 const AllOrders = () => {
   const orders = [
     {
-      id: 1,
+      _id: 1,
       title: "gopal",
       cart: [{ message: "gopal" }],
       totalPrice: 100,
@@ -15,7 +14,7 @@ const AllOrders = () => {
       itemsQty: 10,
     },
     {
-      id: 2,
+      _id: 2,
       title: "krishna",
       cart: [{ message: "gopal" }],
       totalPrice: 100,
@@ -23,7 +22,7 @@ const AllOrders = () => {
       itemsQty: 10,
     },
     {
-      id: 3,
+      _id: 3,
       title: "cronix",
       cart: [{ message: "gopal" }],
       totalPrice: 100,
@@ -32,40 +31,64 @@ const AllOrders = () => {
     },
   ];
   const columns = [
-    { key: "id", name: "Order ID", minWidth: 150, flex: 0.7 },
-
+    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
     {
-      key: "status",
-      name: "Status",
+      field: "status",
+      headerName: "Status",
       minWidth: 130,
       flex: 0.7,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+      renderCell: (params) => {
+        return (
+          <>
+            <Chip
+              label={params?.value}
+              color={`${
+                params?.value === "success"
+                  ? "primary"
+                  : params?.value === "pending"
+                  ? "warning"
+                  : "error"
+              }`}
+            />
+          </>
+        );
       },
     },
     {
-      key: "itemsQty",
-      name: "Items Qty",
+      field: "itemsQty",
+      headerName: "Items Qty",
       type: "number",
       minWidth: 130,
       flex: 0.7,
     },
 
     {
-      key: "total",
-      name: "Total",
+      field: "total",
+      headerName: "Total",
       type: "number",
       minWidth: 130,
       flex: 0.8,
     },
 
     {
-      key: "link",
+      field: " ",
       flex: 1,
       minWidth: 150,
-      name: "",
+      headerName: "",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link
+              to={`this link will be replace with dynamic data ${params._id}`}>
+              <Button>
+                <AiOutlineArrowRight size={20} />
+              </Button>
+            </Link>
+          </>
+        );
+      },
     },
   ];
 
@@ -74,39 +97,21 @@ const AllOrders = () => {
   orders &&
     orders.forEach((item) => {
       row.push({
-        id: item.id, // this id will replace with _id
-        title: item.cart.length,
+        id: item._id,
+        itemsQty: item.cart.length,
         total: "₹ " + item.totalPrice,
-        status:
-          item.status === "success" ? (
-            <span className="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-              {item.status}
-            </span>
-          ) : item.status === "pending" ? (
-            <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
-              {item.status}
-            </span>
-          ) : (
-            <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-              {item.status}
-            </span>
-          ),
-        itemsQty: item.itemsQty,
-        link: (
-          <>
-            <Link to={`/user/order/${item.id}`}>
-              <button>
-                <AiOutlineArrowRight size={20} />
-              </button>
-            </Link>
-          </>
-        ),
+        status: item.status,
       });
     });
 
   return (
     <div className="pl-8 pt-1">
-      <DataGrid rows={row} columns={columns} />
+      <DataGrid
+        rows={row}
+        columns={columns}
+        disableSelectionOnClick
+        autoHeight
+      />
     </div>
   );
 };

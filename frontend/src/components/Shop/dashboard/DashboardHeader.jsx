@@ -36,7 +36,7 @@ const DashboardHeader = () => {
               title="Events"
             />
           </Link>
-          <Link to="/shop/products" className="800px:block hidden">
+          <Link to={`/shop/${seller._id}`} className="800px:block hidden">
             <FiShoppingBag
               color="#555"
               size={30}
