@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { SERVER_URL_API } from "../../constants/data";
+import toast from "react-hot-toast";
 
 const initialState = {
   loading: false,
@@ -34,18 +35,40 @@ const CartSlice = createSlice({
   reducers: {
     addItemsToCart: (state, action) => {
       const newItem = action.payload;
-      const isItemExists = state.cartItems.find(
+      const isItemExists = state.cartItems?.find(
         (item) => item._id === newItem._id
       );
       if (!isItemExists) {
         state.cartItems = [...state.cartItems, newItem];
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        toast.success("Item added successfully🎉");
+      } else {
+        toast.success("Item already in cart!");
       }
     },
     removeItemFromCart: (state, action) => {
-      const remvedItem = action.payload;
-      state.cartItems = state.cartItems.map(
-        (item) => item._id !== remvedItem._id
-      );
+      const _id = action.payload;
+      state.cartItems = state.cartItems?.filter((item) => item._id !== _id);
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      toast.success("Item removed 🚮");
+    },
+    incrementItemQuantity: (state, action) => {
+      const { _id, qty } = action.payload;
+      state.cartItems = state.cartItems?.map((ele) => {
+        if (ele._id == _id) {
+          return { ...ele, qty: qty + 1 };
+        } else return ele;
+      });
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    decrementItemQuantity: (state, action) => {
+      const { _id } = action.payload;
+      state.cartItems = state.cartItems?.map((ele) => {
+        if (ele._id == _id) {
+          return { ...ele, qty: ele.qty - 1 };
+        } else return ele;
+      });
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
   extraReducers: (builder) => {
@@ -60,5 +83,18 @@ const CartSlice = createSlice({
   },
 });
 
+export const addToCart = (dispatch, cart, data) => {
+  dispatch(addItemsToCart(data));
+};
+
+export const removeFromCart = (dispatch, id) => {
+  dispatch(removeItemFromCart(id));
+};
+
 export default CartSlice.reducer;
-export const { addItemsToCart, removeItemFromCart } = CartSlice.actions;
+export const {
+  addItemsToCart,
+  removeItemFromCart,
+  incrementItemQuantity,
+  decrementItemQuantity,
+} = CartSlice.actions;

@@ -1,8 +1,9 @@
-import Profile from "../Profile/Profile";
-import AllOrders from "../Orders/AllOrders";
-import RefoundPage from "../Refound/RefoundPage";
-import InboxPage from "../Message/InboxPage";
-import TrackOrderPage from "../Orders/TrackOrderPage";
+import { lazy } from "react";
+const Profile = lazy(() => import("../Profile/Profile"));
+const AllOrders = lazy(() => import("../Orders/AllOrders"));
+const RefoundPage = lazy(() => import("../Refound/RefoundPage"));
+const InboxPage = lazy(() => import("../Message/InboxPage"));
+const TrackOrderPage = lazy(() => import("../Orders/TrackOrderPage"));
 
 /* eslint-disable react/prop-types */
 const ProfileContent = ({ active }) => {

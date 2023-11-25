@@ -9,12 +9,16 @@ import { useNavigate } from "react-router-dom";
 import ProductDetailsInfo from "./ProductDetailsInfo";
 import { SERVER_URL } from "../../constants/data";
 import Ratings from "./Ratings";
+import { addToCart } from "../../redux/reducers/Cart";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDetails = ({ data }) => {
   const navigate = useNavigate();
   const [value, setValue] = useState(1);
   const [select, setSelect] = useState(0);
   const [wishClick, setWishClick] = useState(false);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const removeFromWishlistHandler = () => {
     setWishClick((prev) => !prev);
@@ -22,7 +26,9 @@ const ProductDetails = ({ data }) => {
   const addToWishlistHandler = () => {
     setWishClick((prev) => !prev);
   };
-  const addToCartHandler = () => {};
+  const addToCartHandler = () => {
+    addToCart(dispatch, cartItems, { ...data, qty: value });
+  };
   const handleMessageSubmit = () => {
     navigate("/inbox/id");
   };
@@ -72,10 +78,22 @@ const ProductDetails = ({ data }) => {
                   <p>{data.description}</p>
                   <div className="flex pt-3">
                     <h4 className={`${styles.productDiscountPrice}`}>
-                      ₹ {data.discountPrice}
+                      {data.discountPrice?.toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      })}
                     </h4>
                     <h3 className={`${styles.price}`}>
-                      {data.originalPrice ? "₹ " + data.originalPrice : null}
+                      {data.originalPrice
+                        ? data.originalPrice?.toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })
+                        : null}
                     </h3>
                   </div>
                   <div className="flex items-center mt-12 justify-between pr-3">

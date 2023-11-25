@@ -1,4 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, lazy } from "react";
+import styles from "../../styles/styles";
+// import Styles from "../../styles/styles";
+import { RxCross1 } from "react-icons/rx";
 import { Menu, Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -12,16 +15,15 @@ import {
   IoIosArrowUp,
 } from "react-icons/io";
 import { RiCustomerService2Fill } from "react-icons/ri";
-import Styles from "../../styles/styles";
+
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { SERVER_URL } from "../../constants/data";
 import { SkeletonCircle } from "@chakra-ui/react";
 import { BiMenuAltLeft } from "react-icons/bi";
-import styles from "../../styles/styles";
-import { RxCross1 } from "react-icons/rx";
-import CartDialog from "./CartDialog";
-import WishListDialog from "./WishListDialog";
+
+const CartDialog = lazy(() => import("./CartDialog"));
+const WishListDialog = lazy(() => import("./WishListDialog"));
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ activeHeading }) => {
@@ -92,7 +94,6 @@ const Header = ({ activeHeading }) => {
               <div className="absolute bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchResult.length > 0 &&
                   searchResult.map((item, index) => {
-                    //! TODO: this should be replace with product _id
                     const name = item.name || "";
                     const linkUrl = name.replace(/\s+/g, "-");
                     return (
@@ -112,7 +113,7 @@ const Header = ({ activeHeading }) => {
             ) : null}
           </div>
           {/* Became a seller */}
-          <div className={`${Styles.button} bg-[#3c2eff] hover:bg-[#4d97ff]`}>
+          <div className={`${styles.button} bg-[#3c2eff] hover:bg-[#4d97ff]`}>
             <Link to={`/shop/dashboard`}>
               <h1 className="text-[#fff] flex items-center">
                 Become Seller
@@ -131,7 +132,7 @@ const Header = ({ activeHeading }) => {
           active ? "shadow-sm fixed top-0 left-0 z-10" : ""
         } transition hidden md:flex items-center justify-between w-full bg-[#101820FF] h-[70px] rounded-md`}>
         <div
-          className={`${Styles.section} relative ${Styles.noramlFlex} justify-between`}>
+          className={`${styles.section} relative ${styles.noramlFlex} justify-between`}>
           {/*  Categories  */}
           <Menu as="div" className="relative inline-block text-left">
             <div onClick={() => setDropDown((prev) => !prev)}>
@@ -161,12 +162,12 @@ const Header = ({ activeHeading }) => {
           </Menu>
           {/* Navitems */}
 
-          <div className={`${Styles.noramlFlex}`}>
+          <div className={`${styles.noramlFlex}`}>
             <Navbar active={activeHeading} />
           </div>
           <div className="flex gap-2">
             {/* wish list */}
-            <div className={`${Styles.noramlFlex}`}>
+            <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <WishListDialog />
               </div>
@@ -174,7 +175,7 @@ const Header = ({ activeHeading }) => {
 
             {/* Cart list */}
 
-            <div className={`${Styles.noramlFlex}`}>
+            <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <CartDialog />
               </div>
@@ -182,7 +183,7 @@ const Header = ({ activeHeading }) => {
 
             {/* Login user profile */}
 
-            <div className={`${Styles.noramlFlex}`}>
+            <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 {loading ? (
                   <SkeletonCircle size="10" />

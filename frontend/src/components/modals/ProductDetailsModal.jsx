@@ -12,12 +12,16 @@ import styles from "../../styles/styles";
 import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { SERVER_URL } from "../../constants/data";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/reducers/Cart";
 
 const ProductDetailsModal = ({ data }) => {
   const [click, setClick] = useState(false);
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const item_name = data.name;
   const item_id = data._id;
@@ -153,7 +157,9 @@ const ProductDetailsModal = ({ data }) => {
               </div>
               <div
                 className={`${styles.button} mt-6 rounded-[4px] h-11 flex items-center`}
-                onClick={() => {}}>
+                onClick={() => {
+                  addToCart(dispatch, cartItems, { ...data, qty: count });
+                }}>
                 <span className="text-[#fff] flex items-center">
                   Add to cart
                   <AiOutlineShoppingCart

@@ -1,6 +1,7 @@
-import DashboardHeader from "../dashboard/DashboardHeader";
-import DashboardSidebar from "../dashboard/DashboardSidebar";
-import ShopDashboardHero from "./ShopDashboardHero";
+import { lazy } from "react";
+const DashboardHeader = lazy(() => import("../dashboard/DashboardHeader"));
+const DashboardSidebar = lazy(() => import("../dashboard/DashboardSidebar"));
+const ShopDashboardHero = lazy(() => import("./ShopDashboardHero"));
 
 const ShopDashboardPage = () => {
   return (

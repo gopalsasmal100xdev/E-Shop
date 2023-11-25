@@ -273,7 +273,8 @@ export const categoriesData = [
     id: 7,
     title: "Pet Care",
     subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+    image_Url:
+      "https://headsupfortails.com/cdn/shop/products/Pedigree-Adult-Dry-Dog-Food-Chicken-Vegetables-FOP-20kg.jpg?v=1676352128&width=823",
   },
   {
     id: 8,

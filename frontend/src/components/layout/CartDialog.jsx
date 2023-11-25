@@ -33,7 +33,11 @@ const CartDialog = () => {
           className="cursor-pointer"
         />
       </Badge>
-      <Dialog maxWidth={"sm"} open={open} onClose={handleClose}>
+      <Dialog
+        fullWidth={true}
+        maxWidth={"sm"}
+        open={open}
+        onClose={handleClose}>
         <DialogContent>
           <Cart />
         </DialogContent>
