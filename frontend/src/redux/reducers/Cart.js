@@ -84,7 +84,10 @@ const CartSlice = createSlice({
 });
 
 export const addToCart = (dispatch, cart, data) => {
-  dispatch(addItemsToCart(data));
+  const { qty, stock } = data;
+  if (qty > stock) {
+    toast.error(`Quantity available ${stock}`);
+  } else dispatch(addItemsToCart(data));
 };
 
 export const removeFromCart = (dispatch, id) => {

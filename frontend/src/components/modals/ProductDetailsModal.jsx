@@ -85,7 +85,7 @@ const ProductDetailsModal = ({ data }) => {
                     <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                     {data.shop && (
                       <h5 className="pb-3 text-[15px]">
-                        ({data.shop.ratings}) Ratings
+                        ({data.shop.ratings || 5}) Ratings
                       </h5>
                     )}
                   </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import {
@@ -6,8 +6,10 @@ import {
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import ProductDetailsModal from "../../modals/ProductDetailsModal";
-import Ratings from "../../Products/Ratings";
+const ProductDetailsModal = lazy(() =>
+  import("../../modals/ProductDetailsModal")
+);
+const Ratings = lazy(() => import("../../Products/Ratings"));
 import { SERVER_URL } from "../../../constants/data";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/reducers/Cart";
@@ -37,13 +39,13 @@ const ProductCard = ({ data }) => {
           />
         )}
       </Link>
-      <Link to="/">
+      <Link to={`/shop/${data?.shop?._id}`}>
         {data.shop && (
           <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
         )}
       </Link>
 
-      <Link to={`/`}>
+      <Link to={`/products/${product_name}[]=${item_id}`}>
         <h4 className="pb-3 font-[500]">
           {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
         </h4>
@@ -100,13 +102,6 @@ const ProductCard = ({ data }) => {
             title="Add to wishlist"
           />
         )}
-        {/* <AiOutlineEye
-          size={22}
-          className="cursor-pointer absolute right-2 top-14"
-          onClick={onOpen}
-          color="#333"
-          title="Quick view"
-        /> */}
         <ProductDetailsModal data={data} />
         <AiOutlineShoppingCart
           size={25}
