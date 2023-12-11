@@ -9,13 +9,18 @@ import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
+import toast from "react-hot-toast";
 
 const CartDialog = () => {
   const [open, setOpen] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (isAuthenticated) setOpen(true);
+    else {
+      toast.error("Please login❗");
+    }
   };
 
   const handleClose = () => {

@@ -16,7 +16,10 @@ router
     if (isUserPresent) {
       res.status(400).json({ message: "User already exists!" });
     } else {
-      const fileName = req.file?.filename;
+      let fileName = req.file?.filename;
+      if (!fileName) {
+        fileName = "e-shop1702275412815-845900894defaut-image.jpg";
+      }
       const user = {
         name,
         email,

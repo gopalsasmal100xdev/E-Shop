@@ -13,18 +13,23 @@ const Ratings = lazy(() => import("../../Products/Ratings"));
 import { SERVER_URL } from "../../../constants/data";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/reducers/Cart";
+import toast from "react-hot-toast";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ data }) => {
   const [click, setClick] = useState(false);
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const item_name = data.name;
-  const item_id = data._id; // this id should be replaced with _id
+  const item_id = data._id;
   const product_name = item_name.replace(/\s+/g, "-");
 
   const addToCartHandler = (id) => {
-    addToCart(dispatch, cartItems, id);
+    if (isAuthenticated) {
+      addToCart(dispatch, user?._id, id);
+    } else {
+      toast.error("Please login❗");
+    }
   };
 
   return (

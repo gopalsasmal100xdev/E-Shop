@@ -55,7 +55,7 @@ const CartSlice = createSlice({
     incrementItemQuantity: (state, action) => {
       const { _id, qty } = action.payload;
       state.cartItems = state.cartItems?.map((ele) => {
-        if (ele._id == _id) {
+        if (ele._id === _id) {
           return { ...ele, qty: qty + 1 };
         } else return ele;
       });
@@ -64,7 +64,7 @@ const CartSlice = createSlice({
     decrementItemQuantity: (state, action) => {
       const { _id } = action.payload;
       state.cartItems = state.cartItems?.map((ele) => {
-        if (ele._id == _id) {
+        if (ele._id === _id) {
           return { ...ele, qty: ele.qty - 1 };
         } else return ele;
       });
@@ -83,7 +83,7 @@ const CartSlice = createSlice({
   },
 });
 
-export const addToCart = (dispatch, cart, data) => {
+export const addToCart = (dispatch, userId, data) => {
   const { qty, stock } = data;
   if (qty > stock) {
     toast.error(`Quantity available ${stock}`);

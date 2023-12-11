@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,7 +34,11 @@ const Login = () => {
       });
   };
 
-  useEffect(() => {}, []);
+  const loginAsGuest = () => {
+    setEmail("guestlogin@gmail.com");
+    setPassword("password@123");
+    return;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -101,11 +105,12 @@ const Login = () => {
                     name="remember-me"
                     id="remember-me"
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    onClick={() => loginAsGuest()}
                   />
                   <label
                     htmlFor="remember-me"
                     className="ml-2 block text-sm text-gray-900">
-                    Remember me
+                    Use Guest Credentials
                   </label>
                 </div>
                 <div className="text-sm">
