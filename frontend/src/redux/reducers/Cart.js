@@ -2,20 +2,29 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { SERVER_URL_API } from "../../constants/data";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const initialState = {
   loading: false,
-  cartItems: localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [],
+  cartItems: [],
   error: "",
 };
+
+function getUserName() {
+  const cookie = Cookies.get("userId");
+  console.log("User Name -> ", cookie);
+
+  return cookie;
+}
 
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async () => {
+    const userId = "66445601dcb5f9f82fa5bb3f";
     return axios
-      .get(`${SERVER_URL_API}/fetchCartItems`, { withCredentials: true })
+      .get(`${SERVER_URL_API}/user-cart/all-items/${userId}`, {
+        withCredentials: true,
+      })
       .then((res) => res.data);
   }
 );
@@ -33,6 +42,14 @@ const CartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    resetCart: (state, _action) => {
+      state.cartItems = [];
+    },
+    refetchCartItems: (state, action) => {
+      state.cartItems = localStorage.getItem(getUserName())
+        ? JSON.parse(localStorage.getItem(getUserName()))
+        : [];
+    },
     addItemsToCart: (state, action) => {
       const newItem = action.payload;
       const isItemExists = state.cartItems?.find(
@@ -40,7 +57,7 @@ const CartSlice = createSlice({
       );
       if (!isItemExists) {
         state.cartItems = [...state.cartItems, newItem];
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        localStorage.setItem(getUserName(), JSON.stringify(state.cartItems));
         toast.success("Item added successfully🎉");
       } else {
         toast.success("Item already in cart!");
@@ -49,7 +66,7 @@ const CartSlice = createSlice({
     removeItemFromCart: (state, action) => {
       const _id = action.payload;
       state.cartItems = state.cartItems?.filter((item) => item._id !== _id);
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.setItem(getUserName(), JSON.stringify(state.cartItems));
       toast.success("Item removed 🚮");
     },
     incrementItemQuantity: (state, action) => {
@@ -94,8 +111,19 @@ export const removeFromCart = (dispatch, id) => {
   dispatch(removeItemFromCart(id));
 };
 
+export const refetchUserCartItems = (dispatch) => {
+  console.log("Refetch call");
+  dispatch(refetchCartItems());
+};
+
+export const resetCartItems = (dispatch) => {
+  dispatch(resetCart());
+};
+
 export default CartSlice.reducer;
 export const {
+  resetCart,
+  refetchCartItems,
   addItemsToCart,
   removeItemFromCart,
   incrementItemQuantity,

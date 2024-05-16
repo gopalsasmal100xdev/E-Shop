@@ -9,6 +9,7 @@ const CouponRouter = require("./routers/couponCode.routing");
 const ShopRouter = require("./routers/shop.routing");
 const ProductsRouter = require("./routers/product.routing");
 const EventsRouter = require("./routers/event.routing");
+const UserCartRouter = require("./routers/addToCart.routing");
 const cors = require("cors");
 const morgan = require("morgan");
 const session = require("express-session");
@@ -67,6 +68,7 @@ app.use("/api/v2/shop", ShopRouter);
 app.use("/api/v2/products", ProductsRouter);
 app.use("/api/v2/events", EventsRouter);
 app.use("/api/v2/coupon", CouponRouter);
+app.use("/api/v2/user-cart", UserCartRouter);
 
 // it's is a Error handler middleware
 app.use((error, req, res, next) => {

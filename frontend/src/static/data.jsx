@@ -59,11 +59,12 @@ export const sponsoredCompanies = [
   {
     id: 3,
     image_url:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/LG_logo_%282015%29.svg/2560px-LG_logo_%282015%29.svg.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtID_9flV8m25RP3JAdEGV8Tz3Qd36C8UF5j8RvTNAzA&s",
   },
   {
     id: 4,
-    image_url: "https://www.vectorlogo.zone/logos/apple/apple-ar21.png",
+    image_url:
+      "https://filecache.mediaroom.com/mr5mr_paypal/177465/pp_h_rgb_logo_tn.jpg",
   },
   {
     id: 5,
@@ -274,7 +275,7 @@ export const categoriesData = [
     title: "Pet Care",
     subTitle: "",
     image_Url:
-      "https://headsupfortails.com/cdn/shop/products/Pedigree-Adult-Dry-Dog-Food-Chicken-Vegetables-FOP-20kg.jpg?v=1676352128&width=823",
+      "https://m.media-amazon.com/images/I/61Aqqe8HgjL.jpg",
   },
   {
     id: 8,

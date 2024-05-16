@@ -115,7 +115,7 @@ const ProductDetails = ({ data }) => {
                       </button>
                     </div>
                     <div>
-                      {wishClick ? (
+                      {/* {wishClick ? (
                         <AiFillHeart
                           size={30}
                           className="cursor-pointer"
@@ -131,7 +131,7 @@ const ProductDetails = ({ data }) => {
                           color={wishClick ? "red" : "#333"}
                           title="Add to wishlist"
                         />
-                      )}
+                      )} */}
                     </div>
                   </div>
                   <div

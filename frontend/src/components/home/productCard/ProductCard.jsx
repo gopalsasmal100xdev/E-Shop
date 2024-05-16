@@ -61,7 +61,7 @@ const ProductCard = ({ data }) => {
         <div className="py-2 flex items-center justify-between">
           <div className="flex">
             <h5 className={`${styles.productDiscountPrice}`}>
-              {data.originalPrice.toLocaleString("en-IN", {
+              {data.discountPrice.toLocaleString("en-IN", {
                 style: "currency",
                 currency: "INR",
                 minimumFractionDigits: 0,
@@ -90,7 +90,7 @@ const ProductCard = ({ data }) => {
 
       {/* side option */}
       <div>
-        {click ? (
+        {/* {click ? (
           <AiFillHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
@@ -106,7 +106,7 @@ const ProductCard = ({ data }) => {
             color={click ? "red" : "#333"}
             title="Add to wishlist"
           />
-        )}
+        )} */}
         <ProductDetailsModal data={data} />
         <AiOutlineShoppingCart
           size={25}

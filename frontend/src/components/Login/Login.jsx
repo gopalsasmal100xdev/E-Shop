@@ -6,9 +6,12 @@ import axios from "axios";
 import { SERVER_URL_API } from "../../constants/data";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
+import { refetchUserCartItems } from "../../redux/reducers/Cart";
+import { useDispatch } from "react-redux";
 // import RegisterToast from "../toast/RegisterToast";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("gopal@gmail.com"); // set dummy email
   const [visible, setVisible] = useState(false);
@@ -22,11 +25,13 @@ const Login = () => {
         password,
       })
       .then((res) => {
-        const { name } = res.data.data;
-        Cookies.set("token", res.data.token, { expires: 7 });
+        const { name, _id } = res.data.data;
+        Cookies.set("token", res.data?.token, { expires: 7 });
+        Cookies.set("userId", _id, { expires: 7 });
         toast(`Welcome back ${name}`, {
           icon: "🎉",
         });
+        refetchUserCartItems(dispatch);
         navigate("/");
       })
       .catch((err) => {

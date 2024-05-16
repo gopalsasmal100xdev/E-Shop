@@ -9,7 +9,7 @@ const CheckoutPage = () => {
       <Header />
       <br />
       <br />
-      <CheckoutSteps active={1} />
+      <CheckoutSteps active={2} />
       <Checkout />
       <br />
       <br />

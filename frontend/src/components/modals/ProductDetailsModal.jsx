@@ -137,7 +137,7 @@ const ProductDetailsModal = ({ data }) => {
                   </button>
                 </div>
                 <div>
-                  {click ? (
+                  {/* {click ? (
                     <AiFillHeart
                       size={30}
                       className="cursor-pointer"
@@ -152,7 +152,7 @@ const ProductDetailsModal = ({ data }) => {
                       onClick={() => setClick((prev) => !prev)}
                       title="Add to wishlist"
                     />
-                  )}
+                  )} */}
                 </div>
               </div>
               <div

@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { TbAddressBook, TbLogout } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Dialog,
@@ -24,8 +24,10 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import { resetCartItems } from "../../redux/reducers/Cart";
 
 const ProfileSidebar = ({ active, setActive }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -39,7 +41,9 @@ const ProfileSidebar = ({ active, setActive }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const logoutHandler = () => {
+    resetCartItems(dispatch);
     Cookies.remove("token");
+    Cookies.remove("userId");
     toast.success("You successfully logged out!");
     navigate("/");
   };

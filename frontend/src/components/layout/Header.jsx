@@ -166,12 +166,12 @@ const Header = ({ activeHeading }) => {
             <Navbar active={activeHeading} />
           </div>
           <div className="flex gap-2">
-            {/* wish list */}
+            {/* wish list
             <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px] ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
                 <WishListDialog />
               </div>
-            </div>
+            </div> */}
 
             {/* Cart list */}
 
@@ -328,7 +328,7 @@ const Header = ({ activeHeading }) => {
           </div>
           <div className="flex gap-3 mr-3">
             <CartDialog />
-            <WishListDialog />
+            {/* <WishListDialog /> */}
           </div>
         </div>
       </div>
