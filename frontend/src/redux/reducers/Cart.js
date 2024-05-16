@@ -4,18 +4,18 @@ import { SERVER_URL_API } from "../../constants/data";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 
-const initialState = {
-  loading: false,
-  cartItems: [],
-  error: "",
-};
-
 function getUserName() {
   const cookie = Cookies.get("userId");
-  console.log("User Name -> ", cookie);
-
   return cookie;
 }
+
+const initialState = {
+  loading: false,
+  cartItems: localStorage.getItem(getUserName())
+    ? JSON.parse(localStorage.getItem(getUserName()))
+    : [],
+  error: "",
+};
 
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
